@@ -1,8 +1,0 @@
-Introduction
-============
-
-1. CST method
-2. Project structure
-3. Directories and Files
-4. Installation
-5. Development

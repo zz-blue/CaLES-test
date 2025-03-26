@@ -3,10 +3,11 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-CST Modeling
-=============
+CaLES Documentation
+=====================
 
-Welcome to the CST Modeling documentation. This section will introduce the method and provide a project structure.
+.. image:: CaLES.jpg
+   :width: 100%
 
 .. toctree::
    :maxdepth: 2
@@ -16,3 +17,10 @@ Welcome to the CST Modeling documentation. This section will introduce the metho
    2.Tutorial
    3.Examples
 
+You can download related theory PDF files from here:
+
+.. raw:: html
+
+   <a href="CaNS 2.0 Theory Manual.pdf">CaNS 2.0 Theory Manual</a> <br>
+   <a href="CaLES_theory.pdf">CaLES theory</a>
+   

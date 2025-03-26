@@ -48,7 +48,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">2. Tutorial</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#compile">2.1. Compile</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#input">2.2. Input</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#output">2.3. Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#visualization">2.3. Visualization</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="3.Examples.html">3.Examples</a></li>
@@ -85,15 +85,291 @@
 </div>
 <section id="compile">
 <h2>2.1. Compile<a class="headerlink" href="#compile" title="Link to this heading"></a></h2>
-<p>Here is the content for the CaNS method.</p>
+<p>For most systems, CaLES can be compiled from the root directory with the following commands <cite>make libs &amp;&amp; make</cite>, which will compile the 2DECOMP&amp;FFT/cuDecomp libraries and CaLES. <cite>make clean</cite> clears the CaLES build files, <cite>make libsclean</cite> clears the 2DECOMP/cuDecomp builds, and <cite>make allclean</cite> clears both.</p>
+<p>The <cite>Makefile</cite> in root directory is used to compiled the code, and is expected to work out-of-the-box for most systems. The <cite>build.conf</cite> file in the root directory can be used to choose the Fortran compiler (MPI wrapper), a few pre-defined profiles depending on the nature of the run (e.g., production vs debugging), and pre-processing options:</p>
+<p>#
+# compiler and compiling profile
+#
+FCOMP=GNU           # options: GNU, NVIDIA, INTEL
+FFLAGS_OPT=1        # for production runs
+FFLAGS_OPT_MAX=0    # for production runs (more aggressive optimization)
+FFLAGS_DEBUG=0      # for debugging
+FFLAGS_DEBUG_MAX=0  # for thorough debugging
+#
+# defines
+#
+DEBUG=1                    # best = 1 (no significant performance penalty)
+TIMING=1                   # best = 1
+IMPDIFF=0                  #
+IMPDIFF_1D=0               #
+PENCIL_AXIS=1              # = 1/2/3 for X/Y/Z-aligned pencils
+SINGLE_PRECISION=0         # perform the whole calculation in single precision
+#
+# GPU-related
+#
+GPU=0
+USE_NVTX=0</p>
+<p>In this file, <cite>FCOMP</cite> can be one of <cite>GNU</cite> (<cite>gfortran</cite>), <cite>INTEL</cite> (<cite>ifort</cite>), <cite>NVIDIA</cite> (<cite>nvfortran</cite>), or <cite>CRAY</cite> (<cite>ftn</cite>); the predefined profiles for compiler options can be selected by choosing one of the <cite>FFLAGS_*</cite> option; finer control of the compiler flags may be achieved by building with, e.g., <cite>make FFLAGS+=[OTHER_FLAGS]</cite>, or by tweaking the profiles directly under <cite>configs/flags.mk</cite>. Similarly, the library paths (e.g., for <em>FFTW</em>) may need to be adapted in the <cite>Makefile</cite> (<cite>LIBS</cite> variable) or by building with <cite>make LIBS+=’-L[PATH_TO_LIB] -l[NAME_OF_LIB]’</cite>. Finally, the following pre-processing options are available:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><cite>DEBUG</cite>                    : performs some basic checks for debugging purposes</p></li>
+<li><p><cite>TIMING</cite>                   : wall-clock time per time step is computed</p></li>
+<li><p><cite>IMPDIFF</cite>                  : diffusion term of the N-S equations is integrated in time with an implicit discretization (thereby improving the stability of the numerical algorithm for viscous-dominated flows)</p></li>
+<li><p><cite>IMPDIFF_1D</cite>               : same as above, but with implicit diffusion <em>only</em> along Z; <em>for optimal parallel performance this option should be combined with</em> <cite>PENCIL_AXIS=3</cite></p></li>
+<li><p><cite>PENCIL_AXIS</cite>              : sets the default pencil direction, one of [1,2,3] for [X,Y,Z]-aligned pencils; X-aligned is the default and should be optimal for all cases except for Z implicit diffusion, where using Z-pencils is recommended</p></li>
+<li><p><cite>SINGLE_PRECISION</cite>         : calculation will be carried out in single precision (the default precision is double)</p></li>
+<li><p><cite>GPU</cite>                      : enable GPU accelerated runs (requires the <cite>FCOMP=NVIDIA</cite>)</p></li>
+<li><p><cite>USE_NVTX</cite>                 : enable [NVTX](<a class="reference external" href="https://docs.nvidia.com/nsight-visual-studio-edition/nvtx">https://docs.nvidia.com/nsight-visual-studio-edition/nvtx</a>) markers to tag certain code regions and assist with profiling</p></li>
+</ul>
+</div></blockquote>
+<p>Typing <cite>make libs</cite> will build the 2DECOMP&amp;FFT/cuDecomp libraries; then typing <cite>make</cite> will compile the code and create the executable <cite>cales</cite> in <cite>build/</cite>.</p>
+<p>Note that cuDecomp needs to be dynamically linked before performing a GPU run. To do this, one should update the <cite>LD_LIBRARY_PATH</cite> environment variable as follows (from the root directory):</p>
+<p>export LD_LIBRARY_PATH=$PWD/dependencies/cuDecomp/build/lib:$LD_LIBRARY_PATH</p>
+<p>Finally, the choice of compiler <cite>FCOMP</cite> (see <cite>configs/flags.mk</cite>), and profile flags <cite>FFLAGS_*</cite> (see <cite>configs/flags.mk</cite>) can easily be overloaded, for instance, as: <cite>make FC=ftn FFLAGS=-O2</cite>. Linking and Include options can be changed in <cite>configs/libs.mk</cite>.</p>
 </section>
 <section id="input">
 <h2>2.2. Input<a class="headerlink" href="#input" title="Link to this heading"></a></h2>
-<p>Here is the content for the CaLES method.</p>
+<p># Setting <cite>input.nml</cite></p>
+<p>Consider the following input file as an example of wall-modeled LES (WMLES) of a turbulent plane channel flow. The <cite>&amp;dns</cite> namelist contains the necessary physical and computational parameters to set a case. The <cite>&amp;les</cite> namelist includes parameters for the large-eddy simulation model. The <cite>&amp;cudecomp</cite> namelist is optional and sets some runtime configurations for the cuDecomp library.</p>
+<p>fortran
+&amp;dns
+ng(1:3) = 128, 96, 64
+l(1:3) = 12.8, 4.8, 2.
+gtype = 6, gr = 0.
+cfl = 0.95, dtmin = 1.e5
+visci = 125000.
+inivel = ‘poi’
+is_wallturb = T
+nstep = 100000, time_max = 100., tw_max = 0.1
+stop_type(1:3) = T, F, F
+restart = F, is_overwrite_save = T, nsaves_max = 0
+icheck = 10, iout0d = 10, iout1d = 100, iout2d = 500, iout3d = 10000, isave = 5000
+cbcvel(0:1,1:3,1) = ‘P’,’P’,  ‘P’,’P’,  ‘D’,’D’
+cbcvel(0:1,1:3,2) = ‘P’,’P’,  ‘P’,’P’,  ‘D’,’D’
+cbcvel(0:1,1:3,3) = ‘P’,’P’,  ‘P’,’P’,  ‘D’,’D’
+cbcpre(0:1,1:3)   = ‘P’,’P’,  ‘P’,’P’,  ‘N’,’N’
+cbcsgs(0:1,1:3)   = ‘P’,’P’,  ‘P’,’P’,  ‘D’,’D’
+bcvel(0:1,1:3,1) =  0.,0.,   0.,0.,   0.,0.
+bcvel(0:1,1:3,2) =  0.,0.,   0.,0.,   0.,0.
+bcvel(0:1,1:3,3) =  0.,0.,   0.,0.,   0.,0.
+bcpre(0:1,1:3  ) =  0.,0.,   0.,0.,   0.,0.
+bcsgs(0:1,1:3)   =  0.,0.,   0.,0.,   0.,0.
+bforce(1:3) = 0., 0., 0.
+is_forced(1:3) = T, F, F
+velf(1:3) = 1., 0., 0.
+dims(1:2) = 2, 2
+&amp;les
+sgstype = ‘smag’
+lwm(0:1,1:3) = 0,0, 0,0, 1,1
+hwm = 0.1
+&amp;cudecomp
+cudecomp_t_comm_backend = 0, cudecomp_is_t_enable_nccl = T, cudecomp_is_t_enable_nvshmem = T
+cudecomp_h_comm_backend = 0, cudecomp_is_h_enable_nccl = T, cudecomp_is_h_enable_nvshmem = T
+</p>
+<p>Here is a tip for vim/nvim users. Consider adding the following lines in your <cite>.vimrc</cite> file for syntax highlighting of the namelist file:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span># vim
+if has(&quot;autocmd&quot;)
+    au BufNewFile,BufRead *.nml set filetype=fortran
+    au BufNewFile,BufRead *.namelist set filetype=fortran
+endif
+</pre></div>
+</div>
+<p>## Namelist <cite>&amp;dns</cite></p>
+<p>fortran
+ng(1:3) = 128, 96, 64
+l(1:3) = 12.8, 4.8, 2.
+gtype = 6, gr = 0.</p>
+<p>These lines set the computational grid.</p>
+<p><cite>ng(1:3)</cite> and <cite>l(1:3)</cite> are the <strong>number of points</strong>  and <strong>domain length</strong> in each direction.</p>
+<p><cite>gtype</cite> and <cite>gr</cite> are the <strong>grid stretching type</strong> and <strong>grid stretching parameter</strong> that tweak the non-uniform grid in the third direction; zero <cite>gr</cite> implies no stretching. See <cite>initgrid.f90</cite> for more details. The following options are available for <cite>gtype</cite>:</p>
+<ul class="simple">
+<li><p><cite>1</cite>: grid clustered towards both ends (default)</p></li>
+<li><p><cite>2</cite>: grid clustered towards the lower end</p></li>
+<li><p><cite>3</cite>: grid clustered towards the upper end</p></li>
+<li><p><cite>4</cite>: grid clustered towards the middle</p></li>
+<li><p><cite>5</cite>: grid clustered towards both ends naturally</p></li>
+<li><p><cite>6</cite>: grid clustered towards both ends suitable for WMLES of wall-bounded flows</p></li>
+</ul>
+<p>fortran
+cfl = 0.95, dtmin = 1.e5</p>
+<p>This line controls the simulation time step.</p>
+<p>The time step is set to be equal to <cite>min(cfl*dtmax,dtmin)</cite>, i.e. the minimum value between <cite>dtmin</cite> and <cite>cfl</cite> times the maximum allowable time step <cite>dtmax</cite> (computed every <cite>ickeck</cite> time steps; see below).
+<cite>dtmin</cite> is therefore used when a constant time step, smaller than <cite>cfl*dtmax</cite>, is required. If not, it should be set to a high value so that the time step is dynamically adjusted to <cite>cfl*dtmax</cite>.</p>
+<p>fortran
+visci = 125000.</p>
+<p>This line defines the inverse of the fluid viscosity, <cite>visci</cite>, meaning that the viscosity is <cite>visc = visci**(-1)</cite>. For a setup defined with two unit reference lengths and velocity scales, <cite>visci</cite> is half of the flow Reynolds number, as in the given example. For a setup defined with unit reference length and velocity scales, <cite>visci</cite> has the same value as the flow Reynolds number.</p>
+<p>fortran
+inivel = ‘poi’
+is_wallturb = T</p>
+<p>These lines set the initial velocity field.</p>
+<p><cite>initvel</cite> <strong>chooses the initial velocity field</strong>. The following options are available:</p>
+<ul class="simple">
+<li><p><cite>zer</cite>: zero velocity field</p></li>
+<li><p><cite>uni</cite>: uniform velocity field equal to <cite>uref</cite>                                     ; streamwise direction in <cite>x</cite></p></li>
+<li><p><cite>cou</cite>: plane Couette flow profile with symmetric wall velocities equal to <cite>uref/2</cite>; streamwise direction in <cite>x</cite></p></li>
+<li><p><cite>poi</cite>: plane Poiseuille flow profile with mean velocity <cite>uref</cite>                    ; streamwise direction in <cite>x</cite></p></li>
+<li><p><cite>tbl</cite>: temporal boundary layer profile with wall velocity <cite>uref</cite>                  ; streamwise direction in <cite>x</cite></p></li>
+<li><p><cite>pdc</cite>: plane Poiseuille flow profile with constant pressure gradient              ; streamwise direction in <cite>x</cite></p></li>
+<li><p><cite>log</cite>: logarithmic profile with mean velocity <cite>uref</cite>                              ; streamwise direction in <cite>x</cite></p></li>
+<li><p><cite>hcp</cite>: half channel with plane Poiseuille profile and mean velocity <cite>uref</cite>        ; streamwise direction in <cite>x</cite></p></li>
+<li><p><cite>hcl</cite>: half channel with logarithmic profile and mean velocity <cite>uref</cite>             ; streamwise direction in <cite>x</cite></p></li>
+<li><p><cite>hdc</cite>: half plane Poiseuille flow profile with constant pressure gradient         ; streamwise direction in <cite>x</cite></p></li>
+<li><p><cite>tgv</cite>: three-dimensional Taylor-Green vortex</p></li>
+<li><p><cite>tgw</cite>: two-dimensional   Taylor-Green vortex</p></li>
+</ul>
+<p><cite>is_wallturb</cite>, if true, <strong>superimposes a high amplitude disturbance on the initial velocity field</strong> that effectively triggers transition to turbulence in a wall-bounded shear flow.</p>
+<p>See <cite>initflow.f90</cite> for more details.</p>
+<p>fortran
+nstep = 100000, time_max = 100., tw_max = 0.1
+stop_type(1:3) = T, F, F
+restart = F, is_overwrite_save = T, nsaves_max = 0</p>
+<p>These lines set the simulation termination criteria and whether the simulation should be restarted from a checkpoint file.</p>
+<p><cite>nstep</cite> is the <strong>total number of time steps</strong>.</p>
+<p><cite>time_max</cite> is the <strong>maximum physical time</strong>.</p>
+<p><cite>tw_max</cite> is the <strong>maximum total simulation wall-clock time</strong>.</p>
+<p><cite>stop_type</cite> sets which criteria for terminating the simulation are to be used (more than one can be selected, and at least one of them must be <cite>T</cite>)</p>
+<ul class="simple">
+<li><p><cite>stop_type(1)</cite>, if true (<cite>T</cite>), the simulation will terminate after <cite>nstep</cite> time steps have been simulated</p></li>
+<li><p><cite>stop_type(2)</cite>, if true (<cite>T</cite>), the simulation will terminate after <cite>time_max</cite> physical time units have been reached</p></li>
+<li><p><cite>stop_type(3)</cite>, if true (<cite>T</cite>), the simulation will terminate after <cite>tw_max</cite> simulation wall-clock time (in hours) has been reached</p></li>
+</ul>
+<p>a checkpoint file <cite>fld.bin</cite> will be saved before the simulation is terminated.</p>
+<p><cite>restart</cite>, if true, <strong>restarts the simulation</strong> from a previously saved checkpoint file, named <cite>fld.bin</cite>.</p>
+<p><cite>is_overwrite_save</cite>, if true, overwrites the checkpoint file <cite>fld.bin</cite> at every save; if false, a symbolic link is created which makes <cite>fld.bin</cite> point to the last checkpoint file with name <cite>fld_???????.bin</cite> (with <cite>???????</cite> denoting the corresponding time step number). In the latter case, to restart a run from a different checkpoint one just has to point the file <cite>fld.bin</cite> to the right file, e.g.: ` ln -sf fld_0000100.bin fld.bin`.</p>
+<p><cite>nsaves_max</cite> limits the number of saved checkpoint files, if <cite>is_over_write_save</cite> is false; a value of <cite>0</cite> or any negative integer corresponds to no limit, and the code uses the file format described above; otherwise, only <cite>nsaves_max</cite> checkpoint files are saved, with the oldest save being overwritten when the number of saved checkpoints exceeds this threshold; in this case, files with a format <cite>fld_????.bin</cite> are saved (with <cite>????</cite> denoting the saved file number), with <cite>fld.bin</cite> pointing to the last checkpoint file as described above; moreover, a file <cite>log_checkpoints.out</cite> records information about the time step number and physical time corresponding to each saved file number.</p>
+<p>fortran
+icheck = 10, iout0d = 10, iout1d = 100, iout2d = 500, iout3d = 10000, isave = 5000</p>
+<p>These lines set the frequency of time step checking and output:</p>
+<ul class="simple">
+<li><p>every <cite>icheck</cite> time steps <strong>the new time step size</strong> is computed according to the new stability criterion and cfl (above)</p></li>
+<li><p>every <cite>iout0d</cite> time steps <strong>history files with global scalar variables</strong> are appended; currently the forcing pressure gradient and time step history are reported</p></li>
+<li><p>every <cite>iout1d</cite> time steps <strong>1d profiles</strong> are written (e.g. velocity and its moments) to a file</p></li>
+<li><p>every <cite>iout2d</cite> time steps <strong>2d slices of a 3d scalar field</strong> are written to a file</p></li>
+<li><p>every <cite>iout3d</cite> time steps <strong>3d scalar fields</strong> are written to a file</p></li>
+<li><p>every <cite>isave</cite>  time steps a <strong>checkpoint file</strong> is written (<cite>fld_???????.bin</cite>), and a symbolic link for the restart file, <cite>fld.bin</cite>, will point to this last save so that, by default, the last saved checkpoint file is used to restart the simulation</p></li>
+</ul>
+<p>1d, 2d and 3d outputs can be tweaked modifying files <cite>out?d.h90</cite>, and re-compiling the source. See also <cite>output.f90</cite> for more details.</p>
+<p>fortran
+cbcvel(0:1,1:3,1) = ‘P’,’P’,  ‘P’,’P’,  ‘D’,’D’
+cbcvel(0:1,1:3,2) = ‘P’,’P’,  ‘P’,’P’,  ‘D’,’D’
+cbcvel(0:1,1:3,3) = ‘P’,’P’,  ‘P’,’P’,  ‘D’,’D’
+cbcpre(0:1,1:3)   = ‘P’,’P’,  ‘P’,’P’,  ‘N’,’N’
+cbcsgs(0:1,1:3)   = ‘P’,’P’,  ‘P’,’P’,  ‘D’,’D’
+bcvel(0:1,1:3,1) =  0.,0.,   0.,0.,   0.,0.
+bcvel(0:1,1:3,2) =  0.,0.,   0.,0.,   0.,0.
+bcvel(0:1,1:3,3) =  0.,0.,   0.,0.,   0.,0.
+bcpre(0:1,1:3  ) =  0.,0.,   0.,0.,   0.,0.
+bcsgs(0:1,1:3)   =  0.,0.,   0.,0.,   0.,0.</p>
+<p>These lines set the boundary conditions (BC).</p>
+<p>The <strong>type</strong> (BC) for each field variable are set by a row of six characters, <cite>X0 X1  Y0 Y1  Z0 Z1</cite> where,</p>
+<ul class="simple">
+<li><p><cite>X0</cite> <cite>X1</cite> set the type of BC the field variable for the <strong>lower</strong> and <strong>upper</strong> boundaries in <cite>x</cite></p></li>
+<li><p><cite>Y0</cite> <cite>Y1</cite> set the type of BC the field variable for the <strong>lower</strong> and <strong>upper</strong> boundaries in <cite>y</cite></p></li>
+<li><p><cite>Z0</cite> <cite>Z1</cite> set the type of BC the field variable for the <strong>lower</strong> and <strong>upper</strong> boundaries in <cite>z</cite></p></li>
+</ul>
+<p>The first five rows correspond to the three velocity components, pressure and eddy viscosoty, i.e. <cite>u</cite>, <cite>v</cite>, <cite>w</cite>, <cite>p</cite> and <cite>visct</cite>. The following options are available:</p>
+<ul class="simple">
+<li><p><cite>P</cite> periodic</p></li>
+<li><p><cite>D</cite> Dirichlet</p></li>
+<li><p><cite>N</cite> Neumann</p></li>
+</ul>
+<p>The next five rows follow the same logic but specify the boundary condition <strong>values</strong> (dummy for a periodic direction). When a wall model is applied to a wall, the boundary condition for that wall should be set to a no-slip condition as given in the example.</p>
+<p>fortran
+bforce(1:3) = 0., 0., 0.
+is_forced(1:3) = T, F, F
+velf(1:3) = 1., 0., 0.</p>
+<p>These lines set the flow forcing.</p>
+<p><cite>bforce</cite>, is a constant <strong>body force density term</strong> in the direction in question (e.g., the negative of a constant pressure gradient) that can be added to the right-hand-side of the momentum equation. The three values correspond to three domain directions.</p>
+<p><cite>is_forced</cite>, if true in the direction in question, <strong>forces the flow</strong> with a pressure gradient that balances the total wall shear (e.g., for a pressure-driven channel). The three boolean values correspond to three domain directions.</p>
+<p><cite>velf</cite>, is the <strong>target bulk velocity</strong> in the direction in question (where <cite>is_forced</cite> is true). The three values correspond to three domain directions.</p>
+<p>fortran
+dims(1:2) = 2, 2</p>
+<p>This line set the grid of computational subdomains.</p>
+<p><cite>dims</cite> is the <strong>processor grid</strong>, the number of domain partitions along the first and second decomposed directions (which depend on the selected default pencil orientation). <cite>dims(1)*dims(2)</cite> corresponds therefore to the total number of computational subdomains. Setting <cite>dims(:) = [0,0]</cite> will trigger a runtime autotuning step to find the processor grid that minimizes transpose times. Note, however, that other components of the algorithm (e.g., collective I/O) may also be affected by the choice of processor grid.</p>
+<p>## Namelist <cite>&amp;les</cite>
+fortran
+sgstype = ‘smag’
+lwm(0:1,1:3) = 0,0, 0,0, 1,1
+hwm = 0.1</p>
+<p>These lines set the subgrid-scale (SGS) model and wall model for the large-eddy simulation.</p>
+<p><cite>sgstype</cite> is the type of <strong>subgrid-scale model</strong>. The following options are available:
+* <cite>smag</cite>: classical Smagorinsky model with the van Driest damping function
+* <cite>dsmag</cite>: dynamic Smagorinsky model with Lilly’s modification</p>
+<p><cite>lwm(0:1,1:3)</cite> sets the <strong>types of wall model</strong> for the LES. The first row corresponds to the lower wall, and the second row to the upper wall. The three columns correspond to the three domain directions. Different wall models can be applied to each wall and direction. The following options are available:
+* <cite>0</cite>: no wall model
+* <cite>1</cite>: logarithmic law wall model</p>
+<p><cite>hwm</cite> is the <strong>wall-modeled layer thickness</strong>.</p>
+<p>## Namelist <cite>&amp;cudecomp</cite></p>
+<p>This is an <strong>optional</strong> namelist to set some runtime configurations for the <em>cuDecomp</em> library. Consider the following <cite>&amp;cudecomp</cite> namelist, which corresponds to the default options in case the file is not provided:</p>
+<p>fortran
+&amp;cudecomp
+cudecomp_t_comm_backend = 0, cudecomp_is_t_enable_nccl = T, cudecomp_is_t_enable_nvshmem = T
+cudecomp_h_comm_backend = 0, cudecomp_is_h_enable_nccl = T, cudecomp_is_h_enable_nvshmem = T</p>
+<p>The first line sets the configuration for the transpose communication backend autotuning. Here <cite>cudecomp_t_comm_backend</cite> can be one of:</p>
+<ul class="simple">
+<li><p><cite>1</cite> -&gt; <cite>CUDECOMP_TRANSPOSE_COMM_MPI_P2P</cite></p></li>
+<li><p><cite>2</cite> -&gt; <cite>CUDECOMP_TRANSPOSE_COMM_MPI_P2P_PL</cite></p></li>
+<li><p><cite>3</cite> -&gt; <cite>CUDECOMP_TRANSPOSE_COMM_MPI_A2A</cite></p></li>
+<li><p><cite>4</cite> -&gt; <cite>CUDECOMP_TRANSPOSE_COMM_NCCL</cite></p></li>
+<li><p><cite>5</cite> -&gt; <cite>CUDECOMP_TRANSPOSE_COMM_NCCL_PL</cite></p></li>
+<li><p><cite>6</cite> -&gt; <cite>CUDECOMP_TRANSPOSE_COMM_NVSHMEM</cite></p></li>
+<li><p><cite>7</cite> -&gt; <cite>CUDECOMP_TRANSPOSE_COMM_NVSHMEM_PL</cite></p></li>
+<li><p>any other value -&gt; enable runtime transpose backend autotuning</p></li>
+</ul>
+<p>The other two boolean values, enable/disable the NCCL (<cite>cudecomp_is_t_enable_nccl</cite>) and NVSHMEM (<cite>cudecomp_is_t_enable_nvshmem</cite>) options for <em>transpose</em> communication backend autotuning.</p>
+<p>The second line is analogous to the first one, but for halo communication backend autotuning. Here <cite>cudecomp_h_comm_backend</cite> can be one of:</p>
+<ul class="simple">
+<li><p><cite>1</cite> -&gt; <cite>CUDECOMP_HALO_COMM_MPI</cite></p></li>
+<li><p><cite>2</cite> -&gt; <cite>CUDECOMP_HALO_COMM_MPI_BLOCKING</cite></p></li>
+<li><p><cite>3</cite> -&gt; <cite>CUDECOMP_HALO_COMM_NCCL</cite></p></li>
+<li><p><cite>4</cite> -&gt; <cite>CUDECOMP_HALO_COMM_NVSHMEM</cite></p></li>
+<li><p><cite>5</cite> -&gt; <cite>CUDECOMP_HALO_COMM_NVSHMEM_BLOCKING</cite></p></li>
+<li><p>any other value -&gt; enable runtime halo backend autotuning</p></li>
+</ul>
+<p>The other two boolean values, enable/disable the NCCL (<cite>cudecomp_is_h_enable_nccl</cite>) and NVSHMEM (<cite>cudecomp_is_h_enable_nvshmem</cite>) options for <em>halo</em> communication backend autotuning.</p>
+<p>Finally, it is worth recalling that passing <cite>dims(1:2) = [0,0]</cite> under <cite>&amp;dns</cite> will trigger the processor grid autotuning, so there is no need to provide that option in the <cite>&amp;cudecomp</cite> namelist.</p>
 </section>
-<section id="output">
-<h2>2.3. Output<a class="headerlink" href="#output" title="Link to this heading"></a></h2>
-<p>Here is the content for the CaLES method.</p>
+<section id="visualization">
+<h2>2.3. Visualization<a class="headerlink" href="#visualization" title="Link to this heading"></a></h2>
+<p>In addition to the binary files for visualization, CaLES now generates a log file that contains information about the saved data (see <cite>out2d.h90</cite> and <cite>out3d.h90</cite> for more details); this new approach uses that log file to generate the <cite>Xdmf</cite> visualization file.</p>
+<p>the steps are as follows:</p>
+<ol class="arabic simple">
+<li><p>after the simulation has run, copy the contents of <cite>utils/visualize_fields/gen_xdmf_easy/write_xdmf.py</cite> to the simulation <cite>data</cite> folder;</p></li>
+<li><p>run the file with <cite>python write_xdmf.py</cite>.</p></li>
+<li><p>load the generated Xdmf (<cite>*.xmf</cite>) file using paraview/visit or other visualization software.</p></li>
+</ol>
+<p>## Example: how to visualize the default binary output</p>
+<p><strong>3D fields</strong></p>
+<p>when running the script <cite>write_xdmf.py</cite> we get the following prompts:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span># python write_xdmf.py
+Name of the log file written by CaLES [log_visu_3d.out]:
+Name to be appended to the grid files to prevent overwriting []:
+Name of the output file [viewfld_DNS.xmf]:
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>the first value is the name of the file that logged the saved data;</p></li>
+<li><p>the second is a name to append to the grid files that are generated, which should change for different log files to prevent conflicts;</p></li>
+<li><p>the third is the name of the visualization file.</p></li>
+</ul>
+<p>by pressing &lt;kbd&gt;enter&lt;/kbd&gt; three times, the default values in the square brackets are assumed by the script; these correspond to the default steps required for visualizing 3D field data.</p>
+<p><strong>2D fields</strong></p>
+<p>the procedure for visualizing 2D field data that is saved by CaLES in <cite>out2d.h90</cite> is exactly the same; it is just that the correct log file should be selected. CaLES saves by default field data in a plane of constant <cite>y=ly/2</cite>, and logs the saves to a file named <cite>log_visu_2d_slice_1.out</cite>. If more planes are saved, the user should make sure that one log file per plane is saved by CaLES (e.g. if another plane is saved, the log file written in <cite>out2d.h90</cite> could be named <cite>log_visu_2d_slice_2.out</cite>); see <cite>out2d.h90</cite> for more details. The corresponding steps to generate the Xdmf file would be, for instance:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span># python write_xdmf.py
+Name of the log file written by CaLES [log_visu_3d.out]: log_visu_2d_slice_1.out
+Name to be appended to the grid files to prevent overwriting []: 2d
+Name of the output file [viewfld_DNS.xmf]: viewfld_DNS_2d.xmf
+</pre></div>
+</div>
+<p><strong>checkpoint files</strong></p>
+<p>A similar script also located in <cite>utils/visualize_fields/gen_xdmf_easy</cite>, named <cite>write_xdmf_restart.py</cite>, can be used to generate metadata that allows to visualize the field data contained in all saved checkpoint files:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span># python write_xdmf_restart.py
+Name of the pattern of the restart files to be visualized [fld?*.bin]:
+Names of stored variables [VEX VEY VEZ PRE]:
+Name to be appended to the grid files to prevent overwriting [_fld]:
+Name of the output file [viewfld_DNS_fld.xmf]:
+</pre></div>
+</div>
 </section>
 </section>
 
