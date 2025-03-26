@@ -1,0 +1,12 @@
+3.Examples
+============
+
+This section introduces the CST modeling approach.
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents:
+
+   3.1.DIT
+   3.2.Channel
+   3.3.Duct

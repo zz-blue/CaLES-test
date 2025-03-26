@@ -3,17 +3,16 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-CaLES documentation
-===================
+CST Modeling
+=============
 
-Add your content using ``reStructuredText`` syntax. See the
-`reStructuredText <https://www.sphinx-doc.org/en/master/usage/restructuredtext/index.html>`_
-documentation for details.
-
+Welcome to the CST Modeling documentation. This section will introduce the method and provide a project structure.
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
-Content
-===================
+   1.Introduction
+   2.Tutorial
+   3.Examples
+

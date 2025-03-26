@@ -1,0 +1,25 @@
+2. Tutorial
+===========
+
+
+This section introduces the CST modeling approach.
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents:
+
+
+2.1. Compile
+---------------
+
+Here is the content for the CaNS method.
+
+2.2. Input
+-------------
+
+Here is the content for the CaLES method.
+
+2.3. Output
+-------------
+
+Here is the content for the CaLES method.
