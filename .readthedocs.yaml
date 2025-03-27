@@ -1,21 +1,20 @@
-# Required
-version:2
+# 必需项
+version: 2
 
-# Set the 0S, Python version and other tools you might need
+# 设置操作系统、Python 版本和其他工具
 build:
-  os:ubuntu-22.04
+  os: ubuntu-22.04
   tools:
-    python:"3.11"
+    python: "3.11"
 
-
-# Build documentation in the "docs/" directory with Sphinx
+# 使用 Sphinx 构建位于 "docs/" 目录中的文档
 sphinx:
   configuration: source/conf.py
 
-# Optionally build your docs in additional formats such as PDF and ePub
+# 可选地将文档构建为其他格式，如 PDF 和 ePub
 formats:
   - PDF
 
 python:
   install:
-  - requirements: requirements.txt
+    - requirements: requirements.txt
