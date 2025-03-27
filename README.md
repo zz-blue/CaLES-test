@@ -15,7 +15,7 @@ To build the documentation locally, you need to have the following files in the 
 - `.readthedocs.yaml`: Configuration file for Read the Docs.
 - `requirements.txt`: The dependencies required to build the documentation.
 
-### Building the Documentation Offline
+## Building the Documentation Offline
 
 To build the documentation, use the following command in the root directory of the project:
 
