@@ -162,7 +162,7 @@ This line defines the inverse of the fluid viscosity, ``visci``, meaning that th
 
 These lines set the initial velocity field.
 
-``initvel`` **chooses the initial velocity field**. The following options are available:
+``inivel`` **chooses the initial velocity field**. The following options are available:
 
 - `zer`: zero velocity field
 - `uni`: uniform velocity field equal to `uref`                                     ; streamwise direction in `x`
