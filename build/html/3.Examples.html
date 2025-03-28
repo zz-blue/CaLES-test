@@ -19,7 +19,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="3.1. DIT" href="3.1.DNS.html" />
+    <link rel="next" title="3.1. DNS" href="3.1.DNS.html" />
     <link rel="prev" title="2. Tutorial" href="2.Tutorial.html" /> 
 </head>
 
@@ -47,7 +47,7 @@
 <li class="toctree-l1"><a class="reference internal" href="1.Introduction.html">1. Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.Tutorial.html">2. Tutorial</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">3. Examples</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="3.1.DNS.html">3.1. DIT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="3.1.DNS.html">3.1. DNS</a></li>
 <li class="toctree-l2"><a class="reference internal" href="3.2.LES.html">3.2. LES</a></li>
 </ul>
 </li>
@@ -79,11 +79,19 @@
              
   <section id="examples">
 <h1>3. Examples<a class="headerlink" href="#examples" title="Link to this heading"></a></h1>
-<p>This section introduces the CST modeling approach.</p>
+<p>The difference between DNS and LES input files lies in disabling the SGS model and the wall model. Specifically, in the following section:</p>
+<div class="highlight-fortran notranslate"><div class="highlight"><pre><span></span><span class="p">&amp;</span><span class="n">les</span>
+<span class="n">sgstype</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;none&#39;</span>
+<span class="n">lwm</span><span class="p">(</span><span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span>
+<span class="n">hwm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.</span>
+</pre></div>
+</div>
+<p>By setting <code class="docutils literal notranslate"><span class="pre">sgstype</span></code> to <code class="docutils literal notranslate"><span class="pre">none</span></code> and <code class="docutils literal notranslate"><span class="pre">lwm</span></code> to <code class="docutils literal notranslate"><span class="pre">0</span></code>, DNS computation can be enabled.</p>
+<p>All example input files can be found in the <code class="docutils literal notranslate"><span class="pre">examples</span></code> folder on GitHub: <a class="reference external" href="https://github.com/soaringxmc/CaLES">https://github.com/soaringxmc/CaLES</a>.</p>
 <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="3.1.DNS.html">3.1. DIT</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="3.1.DNS.html">3.1. DNS</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="3.1.DNS.html#developing-channel">3.1.1. developing_channel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="3.1.DNS.html#developing-duct">3.1.2. developing_duct</a></li>
 </ul>
@@ -104,7 +112,7 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="2.Tutorial.html" class="btn btn-neutral float-left" title="2. Tutorial" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="3.1.DNS.html" class="btn btn-neutral float-right" title="3.1. DIT" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="3.1.DNS.html" class="btn btn-neutral float-right" title="3.1. DNS" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

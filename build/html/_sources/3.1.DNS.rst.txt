@@ -1,4 +1,4 @@
-3.1. DIT
+3.1. DNS
 ============
 
 This section introduces the CST modeling approach.
