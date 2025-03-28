@@ -19,6 +19,8 @@ To build the documentation locally, you need to have the following files in the 
 
 To build the documentation, use the following command in the root directory of the project:
 
-`make.bat html`
+```
+make.bat html
+```
 
 This will generate the HTML documentation, which can be found in the `build/html` directory. You can open the `index.html` file in your browser to view the documentation locally.
