@@ -19,7 +19,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="3.1. DIT" href="3.1.DNS.html" /> 
+    <link rel="prev" title="3.1. DNS" href="3.1.DNS.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -46,12 +46,11 @@
 <li class="toctree-l1"><a class="reference internal" href="1.Introduction.html">1. Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="2.Tutorial.html">2. Tutorial</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="3.Examples.html">3. Examples</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="3.1.DNS.html">3.1. DIT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="3.1.DNS.html">3.1. DNS</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">3.2. LES</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#decaying-isotropic-turbulence">3.2.1. Decaying isotropic turbulence</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#wall-resolved-turbulent-plane-channel-flow">3.2.2. Wall-resolved turbulent plane channel flow</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#wall-modeled-turbulent-plane-channel-flow">3.2.3. Wall-modeled turbulent plane channel flow</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#wall-modeled-turbulent-square-duct-flow">3.2.4. Wall-modeled turbulent square duct flow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#wall-resolved-turbulent-plane-channel-flow">3.2.1. Wall-resolved turbulent plane channel flow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#wall-modeled-turbulent-plane-channel-flow">3.2.2. Wall-modeled turbulent plane channel flow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#wall-modeled-turbulent-square-duct-flow">3.2.3. Wall-modeled turbulent square duct flow</a></li>
 </ul>
 </li>
 </ul>
@@ -85,17 +84,113 @@
              
   <section id="les">
 <h1>3.2. LES<a class="headerlink" href="#les" title="Link to this heading"></a></h1>
-<section id="decaying-isotropic-turbulence">
-<h2>3.2.1. Decaying isotropic turbulence<a class="headerlink" href="#decaying-isotropic-turbulence" title="Link to this heading"></a></h2>
-</section>
+<p>The LES example results presented here are all derived from the work of:</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference external" href="https://arxiv.org/abs/2411.09364">Xiao, Maochao, Alessandro Ceci, Pedro Costa, Johan Larsson, and Sergio Pirozzoli. “CaLES: A GPU-accelerated solver for large-eddy simulation of wall-bounded flows.” arXiv preprint arXiv:2411.09364 (2024).</a></p>
+</div>
 <section id="wall-resolved-turbulent-plane-channel-flow">
-<h2>3.2.2. Wall-resolved turbulent plane channel flow<a class="headerlink" href="#wall-resolved-turbulent-plane-channel-flow" title="Link to this heading"></a></h2>
+<h2>3.2.1. Wall-resolved turbulent plane channel flow<a class="headerlink" href="#wall-resolved-turbulent-plane-channel-flow" title="Link to this heading"></a></h2>
+<p>This case corresponds to <code class="docutils literal notranslate"><span class="pre">example/les/_manuscript_turbulent_channel</span></code>.</p>
+<p>This example simulates a fully developed turbulent plane channel flow using WRLES. The simulation employs two subgrid-scale models: the classical Smagorinsky model and the dynamic Smagorinsky model.</p>
+<ul class="simple">
+<li><p><strong>Domain size</strong>: <cite>(Lx, Ly, Lz) = (12.8h, 2.0h, 4.8h)</cite>, where <cite>h</cite> is the channel half-height.</p></li>
+<li><p><strong>Boundary conditions</strong>: No-slip boundary condition in the y-direction and periodic boundary conditions in the <cite>x</cite> and <cite>z</cite> directions.</p></li>
+<li><p><strong>Reynolds number</strong>: <cite>Reτ = 20,000</cite>, with a friction coefficient <cite>Cf = 0.00591</cite>.</p></li>
+<li><p><strong>Grid resolution</strong>: Four different grids are used for a grid convergence study, with the wall-normal grid spacing varying from approximately <cite>40+</cite> to <cite>10+</cite>, maintaining an aspect ratio <cite>AR = ∆x/∆z = 1.8</cite>.</p></li>
+</ul>
+<p>The following figure shows the visualization of the turbulent channel flow obtained with WRLES:</p>
+<figure class="align-center" id="id1">
+<a class="reference internal image-reference" href="_images/WR_channel_flow.png"><img alt="_images/WR_channel_flow.png" src="_images/WR_channel_flow.png" style="width: 60%;" />
+</a>
+<figcaption>
+<p><span class="caption-text"><strong>Figure 1:</strong> Visualization of turbulent channel flow obtained with WRLES</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>The following figure presents the profiles of mean streamwise velocity, resolved turbulent normal stress and shear stress</p>
+<figure class="align-center" id="id2">
+<a class="reference internal image-reference" href="_images/WR_channel_flow_mean.png"><img alt="_images/WR_channel_flow_mean.png" src="_images/WR_channel_flow_mean.png" style="width: 100%;" />
+</a>
+<figcaption>
+<p><span class="caption-text"><strong>Figure 2:</strong> Mean streamwise velocity profiles with WRLES using SM (a) and DSM (b)</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<figure class="align-center" id="id3">
+<a class="reference internal image-reference" href="_images/WR_channel_flow_resolved.png"><img alt="_images/WR_channel_flow_resolved.png" src="_images/WR_channel_flow_resolved.png" style="width: 100%;" />
+</a>
+<figcaption>
+<p><span class="caption-text"><strong>Figure 3:</strong> Resolved turbulent normal and shear stress profiles with WRLES using SM (a,c) and DSM (b,d). Line codes: ⟨uu⟩ (solid), ⟨vv⟩ (dashed), ⟨ww⟩ (dash-dotted).</span><a class="headerlink" href="#id3" title="Link to this image"></a></p>
+</figcaption>
+</figure>
 </section>
 <section id="wall-modeled-turbulent-plane-channel-flow">
-<h2>3.2.3. Wall-modeled turbulent plane channel flow<a class="headerlink" href="#wall-modeled-turbulent-plane-channel-flow" title="Link to this heading"></a></h2>
+<h2>3.2.2. Wall-modeled turbulent plane channel flow<a class="headerlink" href="#wall-modeled-turbulent-plane-channel-flow" title="Link to this heading"></a></h2>
+<p>This case corresponds to <code class="docutils literal notranslate"><span class="pre">example/les/_manuscript_turbulent_channel_wall_model</span></code>.</p>
+<p>This example simulates a fully developed turbulent plane channel flow using WMLES. The simulation employs two subgrid-scale models: the classical Smagorinsky model and the dynamic Smagorinsky model.</p>
+<ul class="simple">
+<li><p><strong>Domain size and boundary conditions</strong>: The domain size and boundary conditions are the same as those used in the WRLES case.</p></li>
+<li><p><strong>Reynolds number</strong>: <cite>Reτ = 250,000</cite>, with a friction coefficient <cite>Cf = 0.00344</cite>.</p></li>
+<li><p><strong>Grid resolution</strong>: Thirteen different grids are used for a grid convergence study, with the wall-normal grid spacing varying from approximately <cite>0.1h</cite> to <cite>0.006h</cite>. The aspect ratio is <cite>AR = 1.0</cite> and <cite>2.0</cite>.</p></li>
+<li><p><strong>Wall-modeling layer thickness</strong>: The wall-modeling layer thickness is set to <cite>hwm = 0.1h</cite>.</p></li>
+</ul>
+<p>The following figure shows the visualization of the turbulent channel flow obtained with WMLES:</p>
+<figure class="align-center" id="id4">
+<a class="reference internal image-reference" href="_images/WM_channel_flow.png"><img alt="_images/WM_channel_flow.png" src="_images/WM_channel_flow.png" style="width: 60%;" />
+</a>
+<figcaption>
+<p><span class="caption-text"><strong>Figure 4:</strong> Visualization of turbulent channel flow obtained with WRLES</span><a class="headerlink" href="#id4" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>The following figure presents the profiles of mean streamwise velocity, resolved turbulent normal stress and shear stress</p>
+<figure class="align-center" id="id5">
+<a class="reference internal image-reference" href="_images/WM_channel_flow_mean.png"><img alt="_images/WM_channel_flow_mean.png" src="_images/WM_channel_flow_mean.png" style="width: 100%;" />
+</a>
+<figcaption>
+<p><span class="caption-text"><strong>Figure 5:</strong> Mean streamwise velocity profiles with WMLES using the SM (a,c) and DSM (b,d) models on the grids with <cite>AR = 1.0</cite> (a,b) and <cite>AR = 2.0</cite> (c,d).</span><a class="headerlink" href="#id5" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<figure class="align-center" id="id6">
+<a class="reference internal image-reference" href="_images/WM_channel_flow_resolved.png"><img alt="_images/WM_channel_flow_resolved.png" src="_images/WM_channel_flow_resolved.png" style="width: 100%;" />
+</a>
+<figcaption>
+<p><span class="caption-text"><strong>Figure 6:</strong> Resolved turbulent normal stress (a,b) and shear stress (c,d) obtained with WMLES using the SM (a,c) and DSM (b,d) models on the grids with <cite>AR = 1.0</cite>. Line codes: ⟨uu⟩ (solid), ⟨vv⟩ (dashed), ⟨ww⟩ (dash-dotted).</span><a class="headerlink" href="#id6" title="Link to this image"></a></p>
+</figcaption>
+</figure>
 </section>
 <section id="wall-modeled-turbulent-square-duct-flow">
-<h2>3.2.4. Wall-modeled turbulent square duct flow<a class="headerlink" href="#wall-modeled-turbulent-square-duct-flow" title="Link to this heading"></a></h2>
+<h2>3.2.3. Wall-modeled turbulent square duct flow<a class="headerlink" href="#wall-modeled-turbulent-square-duct-flow" title="Link to this heading"></a></h2>
+<p>This case corresponds to <code class="docutils literal notranslate"><span class="pre">example/les/_manuscript_turbulent_duct_wall_model</span></code>.</p>
+<p>This example simulates a fully developed turbulent flow in a square duct using WMLES. The simulation employs two subgrid-scale models: the classical Smagorinsky model and the dynamic Smagorinsky model.</p>
+<ul class="simple">
+<li><p><strong>Domain size</strong>: <cite>(Lx, Ly, Lz) = (12.8h, 2.0h, 2.0h)</cite>, where <cite>h</cite> is half the side length of the duct.</p></li>
+<li><p><strong>Boundary conditions</strong>: Wall-modeled boundary conditions are applied in the <cite>y</cite> and <cite>z</cite> directions, with periodic boundary conditions in the <cite>x</cite> direction.</p></li>
+<li><p><strong>Reynolds number</strong>: <cite>Reτ = 40,000</cite>, with a friction coefficient <cite>Cf = 0.00557</cite>.</p></li>
+<li><p><strong>Grid resolution</strong>: Six different grids are used for a grid convergence study, with the wall-normal grid spacing varying from approximately <cite>0.1h</cite> to <cite>0.006h</cite>.</p></li>
+<li><p><strong>Wall-modeling layer thickness</strong>: The wall-modeling layer thickness is set to <cite>hwm = 0.1h</cite>.</p></li>
+</ul>
+<p>The following figure shows the visualization of the square duct flow obtained with WMLES:</p>
+<figure class="align-center" id="id7">
+<a class="reference internal image-reference" href="_images/WM_duct_flow.png"><img alt="_images/WM_duct_flow.png" src="_images/WM_duct_flow.png" style="width: 100%;" />
+</a>
+<figcaption>
+<p><span class="caption-text"><strong>Figure 7:</strong> Visualization of turbulent channel flow obtained with WRLES</span><a class="headerlink" href="#id7" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>The following figure presents the profiles of mean streamwise velocity, resolved turbulent normal stress and shear stress</p>
+<figure class="align-center" id="id8">
+<a class="reference internal image-reference" href="_images/WM_duct_mean.png"><img alt="_images/WM_duct_mean.png" src="_images/WM_duct_mean.png" style="width: 100%;" />
+</a>
+<figcaption>
+<p><span class="caption-text"><strong>Figure 8:</strong> Mean streamwise velocity profilesalong the wall bisector (a,b) and corner bisector (c,d) obtained from WMLES with the SM (a,c) and DSM (b,d) models.</span><a class="headerlink" href="#id8" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<figure class="align-center" id="id9">
+<a class="reference internal image-reference" href="_images/WM_duct_resolved.png"><img alt="_images/WM_duct_resolved.png" src="_images/WM_duct_resolved.png" style="width: 100%;" />
+</a>
+<figcaption>
+<p><span class="caption-text"><strong>Figure 9:</strong> Resolved turbulent normal stress (a,b) and shear stress (c,d) along the wall bisector as obtained from WMLES with the SM (a,c) and DSM (b,d) models. Line codes: ⟨uu⟩ (solid), ⟨vv⟩ (dashed), ⟨ww⟩ (dash-dotted).</span><a class="headerlink" href="#id9" title="Link to this image"></a></p>
+</figcaption>
+</figure>
 </section>
 </section>
 
@@ -103,7 +198,7 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="3.1.DNS.html" class="btn btn-neutral float-left" title="3.1. DIT" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="3.1.DNS.html" class="btn btn-neutral float-left" title="3.1. DNS" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>
