@@ -48,8 +48,24 @@
 <li class="toctree-l1"><a class="reference internal" href="2.Tutorial.html">2. Tutorial</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="3.Examples.html">3. Examples</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">3.1. DNS</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#developing-channel">3.1.1. developing_channel</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#developing-duct">3.1.2. developing_duct</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#manuscript-lid-driven-cavity">3.1.1. manuscript_lid_driven_cavity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#manuscript-taylor-green-vortex">3.1.2. _manuscript_taylor_green_vortex</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#manuscript-turbulent-channel">3.1.3. _manuscript_turbulent_channel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#manuscript-turbulent-duct">3.1.4. _manuscript_turbulent_duct</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#closed-box">3.1.5. closed_box</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#couette">3.1.6. couette</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#developing-channel">3.1.7. developing_channel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#developing-duct">3.1.8. developing_duct</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#half-channel">3.1.9. half_channel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lid-driven-cavity">3.1.10. lid_driven_cavity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#periodic-channel">3.1.11. periodic_channel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#periodic-duct">3.1.12. periodic_duct</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#taylor-green-vortex-2d">3.1.13. taylor_green_vortex_2d</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#temporal-boundary-layer">3.1.14. temporal_boundary_layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#triperiodic">3.1.15. triperiodic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#turbulent-channel-constant-pressure-gradient">3.1.16. turbulent_channel_constant_pressure_gradient</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#turbulent-channel-convective-reference-frame">3.1.17. turbulent_channel_convective_reference_frame</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#turbulent-half-channel-constant-pressure-gradient">3.1.18. turbulent_half_channel_constant_pressure_gradient</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="3.2.LES.html">3.2. LES</a></li>
@@ -84,12 +100,78 @@
              
   <section id="dns">
 <h1>3.1. DNS<a class="headerlink" href="#dns" title="Link to this heading"></a></h1>
-<p>This section introduces the CST modeling approach.</p>
+<p>These cases are included in <code class="docutils literal notranslate"><span class="pre">example/dns/</span></code>.</p>
+<section id="manuscript-lid-driven-cavity">
+<h2>3.1.1. manuscript_lid_driven_cavity<a class="headerlink" href="#manuscript-lid-driven-cavity" title="Link to this heading"></a></h2>
+<p>This example simulates a lid-driven cavity flow, where the top boundary is moving at a constant velocity, and the other boundaries are fixed. It focuses on studying the flow behavior and turbulence characteristics in the cavity, typically used for validation of numerical methods.</p>
+</section>
+<section id="manuscript-taylor-green-vortex">
+<h2>3.1.2. _manuscript_taylor_green_vortex<a class="headerlink" href="#manuscript-taylor-green-vortex" title="Link to this heading"></a></h2>
+<p>This is another simulation of the Taylor-Green vortex, but potentially with different numerical setups or boundary conditions. It is used to validate turbulence models in both 2D and 3D cases, focusing on vortex dynamics and turbulence decay.</p>
+</section>
+<section id="manuscript-turbulent-channel">
+<h2>3.1.3. _manuscript_turbulent_channel<a class="headerlink" href="#manuscript-turbulent-channel" title="Link to this heading"></a></h2>
+<p>This case simulates a turbulent flow in a channel, typically used for benchmarking turbulence models. It focuses on the development of turbulence in the channel, including the effects of Reynolds number, turbulence models, and boundary conditions.</p>
+</section>
+<section id="manuscript-turbulent-duct">
+<h2>3.1.4. _manuscript_turbulent_duct<a class="headerlink" href="#manuscript-turbulent-duct" title="Link to this heading"></a></h2>
+<p>This simulation focuses on turbulent flow in a duct, which is often used to test and validate turbulence models for confined flow domains. The duct flow provides a controlled environment to study turbulence development, pressure drop, and heat transfer.</p>
+</section>
+<section id="closed-box">
+<h2>3.1.5. closed_box<a class="headerlink" href="#closed-box" title="Link to this heading"></a></h2>
+<p>This case simulates flow within a closed box, where the flow is confined to a bounded domain. It is used to study the development of turbulence in a completely enclosed system, useful for validating numerical methods in closed systems.</p>
+</section>
+<section id="couette">
+<h2>3.1.6. couette<a class="headerlink" href="#couette" title="Link to this heading"></a></h2>
+<p>This example simulates Couette flow, where a fluid is sheared between two plates, one of which is moving at a constant velocity. It is used to study simple shear flows and is a classical test case for validating models of viscosity and turbulence at low Reynolds numbers.</p>
+</section>
 <section id="developing-channel">
-<h2>3.1.1. developing_channel<a class="headerlink" href="#developing-channel" title="Link to this heading"></a></h2>
+<h2>3.1.7. developing_channel<a class="headerlink" href="#developing-channel" title="Link to this heading"></a></h2>
+<p>This example simulates the flow in a developing channel, where the flow evolves from an initially laminar state to a fully developed turbulent state. It is used to investigate the transition from laminar to turbulent flow and the effects of different turbulence models.</p>
 </section>
 <section id="developing-duct">
-<h2>3.1.2. developing_duct<a class="headerlink" href="#developing-duct" title="Link to this heading"></a></h2>
+<h2>3.1.8. developing_duct<a class="headerlink" href="#developing-duct" title="Link to this heading"></a></h2>
+<p>This case simulates flow development in a duct, where the flow starts from a laminar or transitional state and develops into a fully turbulent flow. It is used for studying the effects of different turbulence models and grid resolutions on flow development in ducts.</p>
+</section>
+<section id="half-channel">
+<h2>3.1.9. half_channel<a class="headerlink" href="#half-channel" title="Link to this heading"></a></h2>
+<p>This example simulates the flow in half of a channel, where the flow is subject to wall conditions on one side and periodic conditions on the other. It is used to investigate the effects of boundary conditions and turbulence models on channel flow.</p>
+</section>
+<section id="lid-driven-cavity">
+<h2>3.1.10. lid_driven_cavity<a class="headerlink" href="#lid-driven-cavity" title="Link to this heading"></a></h2>
+<p>This case simulates flow in a cavity with a moving lid at the top. The problem is a classical test case for validating turbulence models and studying vortex structures and the effect of Reynolds number on cavity flow dynamics.</p>
+</section>
+<section id="periodic-channel">
+<h2>3.1.11. periodic_channel<a class="headerlink" href="#periodic-channel" title="Link to this heading"></a></h2>
+<p>This example simulates flow in a periodic channel, where the domain has periodic boundary conditions in the streamwise direction. It is used to study turbulence characteristics in flows where the flow repeats itself, allowing for efficient simulation of large systems.</p>
+</section>
+<section id="periodic-duct">
+<h2>3.1.12. periodic_duct<a class="headerlink" href="#periodic-duct" title="Link to this heading"></a></h2>
+<p>This case simulates flow in a duct with periodic boundary conditions in the streamwise direction. It is used to investigate turbulence in confined flow regions with periodic boundary conditions, which is relevant to simulations of long ducts or pipes.</p>
+</section>
+<section id="taylor-green-vortex-2d">
+<h2>3.1.13. taylor_green_vortex_2d<a class="headerlink" href="#taylor-green-vortex-2d" title="Link to this heading"></a></h2>
+<p>This case simulates the 2D Taylor-Green vortex problem, a classic benchmark for turbulence simulations. It is used to study vortex interactions, energy decay, and turbulence characteristics in an idealized periodic flow domain.</p>
+</section>
+<section id="temporal-boundary-layer">
+<h2>3.1.14. temporal_boundary_layer<a class="headerlink" href="#temporal-boundary-layer" title="Link to this heading"></a></h2>
+<p>This case simulates a boundary layer flow in a temporal setup, where the flow is subject to an unsteady or time-varying boundary condition. It focuses on studying the transient behavior of the boundary layer and its development over time.</p>
+</section>
+<section id="triperiodic">
+<h2>3.1.15. triperiodic<a class="headerlink" href="#triperiodic" title="Link to this heading"></a></h2>
+<p>This case simulates a triperiodic flow, where the flow domain is periodic in all three spatial directions. It is typically used to study the behavior of turbulence in fully periodic flows and validate turbulence models in a complex periodic domain.</p>
+</section>
+<section id="turbulent-channel-constant-pressure-gradient">
+<h2>3.1.16. turbulent_channel_constant_pressure_gradient<a class="headerlink" href="#turbulent-channel-constant-pressure-gradient" title="Link to this heading"></a></h2>
+<p>This example simulates turbulent flow in a channel with a constant pressure gradient, which is typically used to investigate the influence of pressure-driven flows on turbulence characteristics and the comparison of turbulence models.</p>
+</section>
+<section id="turbulent-channel-convective-reference-frame">
+<h2>3.1.17. turbulent_channel_convective_reference_frame<a class="headerlink" href="#turbulent-channel-convective-reference-frame" title="Link to this heading"></a></h2>
+<p>This case simulates turbulent flow in a channel with a convective reference frame, which is often used to study the effects of moving reference frames on turbulence structures and the transformation of turbulence properties in different frames of reference.</p>
+</section>
+<section id="turbulent-half-channel-constant-pressure-gradient">
+<h2>3.1.18. turbulent_half_channel_constant_pressure_gradient<a class="headerlink" href="#turbulent-half-channel-constant-pressure-gradient" title="Link to this heading"></a></h2>
+<p>This case simulates turbulent flow in half of a channel with a constant pressure gradient. It is used to study the effects of pressure-driven flows in channel-like domains, focusing on the comparison of turbulence models and the prediction of pressure gradients and velocity profiles in turbulent flows.</p>
 </section>
 </section>
 
