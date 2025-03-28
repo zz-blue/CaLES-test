@@ -4,9 +4,7 @@ The documentation for the **CaLES** project is written in **reStructuredText** a
 
 ## How to Access the Documentation
 
-You can view the full documentation for **CaLES** at the following link:
-
-[CaLES Documentation on Read the Docs](https://cales-test.readthedocs.io/en/latest/)
+You can view the full documentation for **CaLES** at the following link: https://cales-test.readthedocs.io/en/latest/
 
 ## Building the Documentation on `Read the Docs`
 
