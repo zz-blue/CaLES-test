@@ -6,7 +6,7 @@
 CaLES Documentation
 =====================
 
-.. image:: CaLES.jpg
+.. image:: figure/CaLES.jpg
    :width: 100%
 
 .. toctree::
