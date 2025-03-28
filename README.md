@@ -8,14 +8,14 @@ You can view the full documentation for **CaLES** at the following link:
 
 [CaLES Documentation on Read the Docs](https://cales-test.readthedocs.io/en/latest/)
 
-## Building the Documentation Online
+## Building the Documentation on `Read the Docs`
 
 To build the documentation locally, you need to have the following files in the repository:
 
 - `.readthedocs.yaml`: Configuration file for Read the Docs.
 - `requirements.txt`: The dependencies required to build the documentation.
 
-## Building the Documentation Offline
+## Building the Documentation on Windows
 
 To build the documentation, use the following command in the root directory of the project:
 
