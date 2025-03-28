@@ -7,6 +7,5 @@ This section introduces the CST modeling approach.
    :maxdepth: 2
    :caption: Contents:
 
-   3.1.DIT
-   3.2.Channel
-   3.3.Duct
+   3.1.DNS
+   3.2.LES

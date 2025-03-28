@@ -1,0 +1,10 @@
+3.1. DIT
+============
+
+This section introduces the CST modeling approach.
+
+3.1.1. developing_channel
+---------------------------------------
+
+3.1.2. developing_duct
+---------------------------------------
