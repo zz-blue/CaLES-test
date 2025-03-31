@@ -1,0 +1,229 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DNS &mdash; CaLES  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="_static/doctools.js?v=9a2dae69"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="LES" href="LES.html" />
+    <link rel="prev" title="Examples" href="Examples.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            CaLES
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial.html">Tutorial</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="Examples.html">Examples</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">DNS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#lid-driven-cavity-flow">Lid-driven cavity flow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pressure-driven-turbulent-channel-and-square-duct-flow">Pressure-driven turbulent channel and square duct flow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#taylorgreen-vortex">Taylor–Green vortex</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="LES.html">LES</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Bibliography.html">Bibliography</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">CaLES</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="Examples.html">Examples</a></li>
+      <li class="breadcrumb-item active">DNS</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/DNS.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="dns">
+<h1>DNS<a class="headerlink" href="#dns" title="Link to this heading"></a></h1>
+<p>More detailed results of the demonstration examples can be found in the following references:</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference external" href="https://doi.org/10.1016/j.camwa.2018.07.034">Costa, Pedro. “FFT-based finite-difference solver for massively-parallel direct numerical simulations of turbulent flows.” Computers &amp; Mathematics with Applications 76 (2018) 1853–1862.</a></p>
+</div>
+<section id="lid-driven-cavity-flow">
+<h2>Lid-driven cavity flow<a class="headerlink" href="#lid-driven-cavity-flow" title="Link to this heading"></a></h2>
+<p>This case corresponds to <code class="docutils literal notranslate"><span class="pre">example/dns/_manuscript_lid_driven_cavity</span></code>.</p>
+<p>This example simulates a lid-driven cavity flow in a cubic domain, where the top wall moves with a constant velocity while the other walls are stationary with no-slip boundary conditions.</p>
+<ul class="simple">
+<li><p><strong>Domain:</strong> A cubic domain with dimensions <cite>[-h/2, h/2]^3</cite>.</p></li>
+<li><p><strong>Boundary Conditions:</strong></p>
+<ul>
+<li><p>No-slip and no-penetration conditions on all walls except the top.</p></li>
+<li><p>The top wall moves with a velocity <cite>u(x, y, h/2) = (U, 0, 0)</cite>.</p></li>
+</ul>
+</li>
+<li><p><strong>Reynolds Number:</strong> Defined as <cite>Re = Uh/ν = 1000</cite>.</p></li>
+</ul>
+<p>The following figure shows the profiles of the steady-state solution at the centerlines:</p>
+<figure class="align-center" id="id1">
+<a class="reference internal image-reference" href="_images/Lid_driven_cavity.png"><img alt="_images/Lid_driven_cavity.png" src="_images/Lid_driven_cavity.png" style="width: 60%;" />
+</a>
+<figcaption>
+<p><span class="caption-text"><strong>Figure 1:</strong> Profiles of the steady-state solution at the centerlines</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="pressure-driven-turbulent-channel-and-square-duct-flow">
+<h2>Pressure-driven turbulent channel and square duct flow<a class="headerlink" href="#pressure-driven-turbulent-channel-and-square-duct-flow" title="Link to this heading"></a></h2>
+<p>These cases correspond to <code class="docutils literal notranslate"><span class="pre">example/dns/_manuscript_turbulent_channel</span></code> and <code class="docutils literal notranslate"><span class="pre">example/dns/_manuscript_turbulent_duct</span></code>.</p>
+<p>This example considers two turbulent wall-bounded flows: a plane channel and a square duct. Both flows are driven by pressure and share similar boundary conditions and physical parameters.</p>
+<ul class="simple">
+<li><p><strong>Boundary conditions</strong>:</p>
+<ul>
+<li><p>Both flows are periodic in the streamwise (x) direction.</p></li>
+<li><p>No-slip/no-penetration boundary conditions are applied at the wall-normal directions:</p>
+<ul>
+<li><p>For the square duct, at <cite>y = ±h</cite> and <cite>z = ±h</cite>.</p></li>
+<li><p>For the plane channel, at <cite>z = ±h</cite>, with periodicity in the spanwise direction <cite>y</cite>.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Volume force</strong>: A volume force is added to the discretized momentum equation to maintain a bulk streamwise velocity <cite>Ub = 1</cite>.</p></li>
+<li><p><strong>Reynolds number</strong>: The Reynolds number is defined as <cite>Re = Ub(2h)/ν</cite>, with <cite>h</cite> being the channel or duct half-height</p>
+<ul>
+<li><p>For the square duct, <cite>Re = 4410</cite>.</p></li>
+<li><p>For the plane channel, <cite>Re = 5640</cite>.</p></li>
+</ul>
+</li>
+</ul>
+<p>The following figure shows the visualization of the pressure-driven turbulent channel and square duct flow:</p>
+<figure class="align-center" id="id2">
+<a class="reference internal image-reference" href="_images/channel_duct_flow.png"><img alt="_images/channel_duct_flow.png" src="_images/channel_duct_flow.png" style="width: 100%;" />
+</a>
+<figcaption>
+<p><span class="caption-text"><strong>Figure 2:</strong> Visualization of pressure-driven turbulent channel and square duct flow</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>The following figure presents the results for the two cases:</p>
+<figure class="align-center" id="id3">
+<a class="reference internal image-reference" href="_images/channel_duct_flow_1.png"><img alt="_images/channel_duct_flow_1.png" src="_images/channel_duct_flow_1.png" style="width: 100%;" />
+</a>
+<figcaption>
+<p><span class="caption-text"><strong>Figure 3:</strong> Mean streamwise velocity (a) and root-mean-square velocity (b) for turbulent channel flow</span><a class="headerlink" href="#id3" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<figure class="align-center" id="id4">
+<a class="reference internal image-reference" href="_images/channel_duct_flow_2.png"><img alt="_images/channel_duct_flow_2.png" src="_images/channel_duct_flow_2.png" style="width: 100%;" />
+</a>
+<figcaption>
+<p><span class="caption-text"><strong>Figure 4:</strong> Mean flow (a) and mean streamwise velocity along the duct diagonal(b) for turbulent square duct flow</span><a class="headerlink" href="#id4" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="taylorgreen-vortex">
+<h2>Taylor–Green vortex<a class="headerlink" href="#taylorgreen-vortex" title="Link to this heading"></a></h2>
+<p>This case corresponds to <code class="docutils literal notranslate"><span class="pre">example/dns/_manuscript_taylor_green_vortex</span></code>.</p>
+<p>The Taylor–Green vortex is solved in a tri-periodic domain with dimensions <cite>[0, 2π]³</cite>. The initial velocity field is defined as:</p>
+<ul class="simple">
+<li><p><strong>Initial velocity field</strong>:</p>
+<ul>
+<li><p>u0 = U sin(x/L) cos(y/L) cos(z/L)</p></li>
+<li><p>v0 = -U cos(x/L) sin(y/L) cos(z/L)</p></li>
+<li><p>w0 = 0</p></li>
+</ul>
+</li>
+<li><p><strong>Reynolds number</strong>: The Reynolds number is defined as <cite>Re = 1600</cite></p></li>
+</ul>
+<p>The following figure shows the visualization of the pressure-driven turbulent channel and square duct flow:</p>
+<figure class="align-center" id="id5">
+<a class="reference internal image-reference" href="_images/Taylor_Green_Vortex.png"><img alt="_images/Taylor_Green_Vortex.png" src="_images/Taylor_Green_Vortex.png" style="width: 100%;" />
+</a>
+<figcaption>
+<p><span class="caption-text"><strong>Figure 5:</strong> Visualization of Taylor–Green vortex flow</span><a class="headerlink" href="#id5" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>The following figure presents the results for the two cases:</p>
+<figure class="align-center" id="id6">
+<a class="reference internal image-reference" href="_images/Taylor_Green_Vortex_1.png"><img alt="_images/Taylor_Green_Vortex_1.png" src="_images/Taylor_Green_Vortex_1.png" style="width: 60%;" />
+</a>
+<figcaption>
+<p><span class="caption-text"><strong>Figure 6:</strong> Mean viscous dissipation of three-dimensional Taylor–Green vortex</span><a class="headerlink" href="#id6" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Examples.html" class="btn btn-neutral float-left" title="Examples" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="LES.html" class="btn btn-neutral float-right" title="LES" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, CaLES contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

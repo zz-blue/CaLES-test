@@ -1,4 +1,4 @@
-1. Introduction
+Introduction
 ===============
 
 
@@ -7,7 +7,7 @@
    :caption: Contents:
 
 
-1.1. Overview
+Overview
 ------------------
 
 `CaLES <https://github.com/soaringxmc/CaLES>`_ (Canonical Large-Eddy Simulation) is a GPU-accelerated finite-difference solver designed for large-eddy simulations (LES) of incompressible wall-bounded flows in massively parallel environments. Built upon the existing direct numerical simulation (DNS) solver `CaNS <https://github.com/CaNS-World/CaNS>`_, CaLES relies on low-storage, third-order Runge-Kutta schemes for temporal discretization, with the option to treat viscous terms via an implicit Crank-Nicolson scheme in one or three directions. A fast direct solver, based on eigenfunction expansions, is used to solve the discretized Poisson/Helmholtz equations. For turbulence modeling, the classical Smagorinsky model with van Driest near-wall damping and the dynamic Smagorinsky model are implemented, along with a logarithmic law wall model. GPU acceleration is achieved through OpenACC directives. Some examples of flows that CaLES can solve include:
@@ -30,7 +30,7 @@ CaLES allows for choosing an implicit temporal discretization of the momentum di
 
 Please refer to the theory manual :download:`CaLES_theory.pdf <CaLES_theory.pdf>` for more information on the methodology of CaLES. The theory manual is also available on Overleaf at the following link: `Overleaf Theory Manual <https://www.overleaf.com/read/ggfmdsymppxm#9b973d>`_.
 
-1.2. Implementation
+Implementation
 ----------------------------
 
 Some of the key implementation features of CaLES are:
@@ -53,9 +53,9 @@ Some of the key implementation features of CaLES are:
    `Costa, Pedro. "A FFT-based finite-difference solver for massively-parallel direct numerical simulations of turbulent flows." Computers & Mathematics with Applications 76 (2018): 1853-1862. <https://www.sciencedirect.com/science/article/pii/S089812211830405X?via%3Dihub>`_  
 
 
-1.3. Getting Started
+Getting Started
 ----------------------------
-1.3.1. Installation
+Installation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Since CaLES loads the external pencil decomposition libraries as Git Submodules, the repository should be cloned as follows:
@@ -92,7 +92,7 @@ The ``Makefile`` in root directory is used to compile the code, and is expected 
 
 The executable ``cales`` will be created in the ``build/`` directory.
 
-1.3.2. Running Simulations
+Running Simulations
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The input file ``input.nml`` sets the physical and computational parameters. In the ``examples/`` folder are examples of input files for several canonical flows. See :ref:`2.2. Input <input_section>` for a detailed description of the input file.
@@ -107,7 +107,7 @@ Run the executable with mpirun with a number of tasks. For example, to run the c
 
 See :ref:`2.3. Visualization <visualization_section>` for how to visualize the output files.
 
-1.4. Contributing
+Contributing
 ----------------------------
 We appreciate any contributions and feedback that can improve CaLES. If you wish to contribute to the tool, please get in touch with the maintainers or open an Issue in the repository / a thread in Discussions. Pull Requests are welcome, but please propose/discuss the changes in an linked Issue first.
 

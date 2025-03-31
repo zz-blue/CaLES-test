@@ -1,13 +1,14 @@
-3.2. LES
+LES
 ==============
 
-The LES example results presented here are all derived from the work of:
+More detailed results of the demonstration examples can be found in the following references:
 
-.. seealso::
-   `Xiao, Maochao, Alessandro Ceci, Pedro Costa, Johan Larsson, and Sergio Pirozzoli. "CaLES: A GPU-accelerated solver for large-eddy simulation of wall-bounded flows." arXiv preprint arXiv:2411.09364 (2024). <https://arxiv.org/abs/2411.09364>`_
+.. seealso::  
+   
+   `Xiao, Maochao, Alessandro Ceci, Pedro Costa, Johan Larsson, and Sergio Pirozzoli. "CaLES: A GPU-accelerated solver for large-eddy simulation of wall-bounded flows." arXiv preprint arXiv:2411.09364 (2024). <https://arxiv.org/abs/2411.09364>`_  
+   
 
-
-3.2.1. Wall-resolved turbulent plane channel flow
+Wall-resolved turbulent plane channel flow
 -----------------------------------------------------
 
 This case corresponds to ``example/les/_manuscript_turbulent_channel``. 
@@ -44,7 +45,7 @@ The following figure presents the profiles of mean streamwise velocity, resolved
 
 
 
-3.2.2. Wall-modeled turbulent plane channel flow
+Wall-modeled turbulent plane channel flow
 -----------------------------------------------------
 
 This case corresponds to ``example/les/_manuscript_turbulent_channel_wall_model``. 
@@ -80,7 +81,7 @@ The following figure presents the profiles of mean streamwise velocity, resolved
    **Figure 6:** Resolved turbulent normal stress (a,b) and shear stress (c,d) obtained with WMLES using the SM (a,c) and DSM (b,d) models on the grids with `AR = 1.0`. Line codes: ⟨uu⟩ (solid), ⟨vv⟩ (dashed), ⟨ww⟩ (dash-dotted).
 
 
-3.2.3. Wall-modeled turbulent square duct flow
+Wall-modeled turbulent square duct flow
 -------------------------------------------------
 
 This case corresponds to ``example/les/_manuscript_turbulent_duct_wall_model``. 
@@ -115,3 +116,4 @@ The following figure presents the profiles of mean streamwise velocity, resolved
    :align: center
    
    **Figure 9:** Resolved turbulent normal stress (a,b) and shear stress (c,d) along the wall bisector as obtained from WMLES with the SM (a,c) and DSM (b,d) models. Line codes: ⟨uu⟩ (solid), ⟨vv⟩ (dashed), ⟨ww⟩ (dash-dotted).
+

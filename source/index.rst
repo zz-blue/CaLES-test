@@ -13,7 +13,8 @@ CaLES Documentation
    :maxdepth: 2
    :caption: Contents:
 
-   1.Introduction
-   2.Tutorial
-   3.Examples
+   Introduction
+   Tutorial
+   Examples
+   Bibliography
    

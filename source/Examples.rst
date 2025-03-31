@@ -1,4 +1,4 @@
-3. Examples
+Examples
 ============
 
 The difference between DNS and LES input files lies in disabling the SGS model and the wall model. Specifically, in the following section:
@@ -20,5 +20,5 @@ All example input files can be found in the ``examples`` folder on GitHub: https
    :caption: Contents:
 
 
-   3.1.DNS
-   3.2.LES
+   DNS
+   LES

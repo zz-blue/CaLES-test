@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>2. Tutorial &mdash; CaLES  documentation</title>
+  <title>Tutorial &mdash; CaLES  documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
 
@@ -19,8 +19,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="3. Examples" href="3.Examples.html" />
-    <link rel="prev" title="1. Introduction" href="1.Introduction.html" /> 
+    <link rel="next" title="Examples" href="Examples.html" />
+    <link rel="prev" title="Introduction" href="Introduction.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -44,25 +44,26 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="1.Introduction.html">1. Introduction</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">2. Tutorial</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#compile">2.1. Compile</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#input">2.2. Input</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#setting-input-nml">2.2.1. Setting <cite>input.nml</cite></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#namelist-dns">2.2.2. Namelist <cite>&amp;dns</cite></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#namelist-les">2.2.3. Namelist <cite>&amp;les</cite></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#namelist-cudecomp">2.2.4. Namelist <cite>&amp;cudecomp</cite></a></li>
+<li class="toctree-l1"><a class="reference internal" href="Introduction.html">Introduction</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Tutorial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#compile">Compile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#input">Input</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#setting-input-nml">Setting <cite>input.nml</cite></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#namelist-dns">Namelist <cite>&amp;dns</cite></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#namelist-les">Namelist <cite>&amp;les</cite></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#namelist-cudecomp">Namelist <cite>&amp;cudecomp</cite></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#visualization">2.3. Visualization</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#d-fields">2.3.1. 3D fields</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id1">2.3.2. 2D fields</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#checkpoint-files">2.3.3. checkpoint files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#visualization">Visualization</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#d-fields">3D fields</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1">2D fields</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#checkpoint-files">Checkpoint files</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="3.Examples.html">3. Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Bibliography.html">Bibliography</a></li>
 </ul>
 
         </div>
@@ -79,9 +80,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">2. Tutorial</li>
+      <li class="breadcrumb-item active">Tutorial</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="_sources/2.Tutorial.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/Tutorial.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -90,9 +91,9 @@
            <div itemprop="articleBody">
              
   <section id="tutorial">
-<h1>2. Tutorial<a class="headerlink" href="#tutorial" title="Link to this heading"></a></h1>
+<h1>Tutorial<a class="headerlink" href="#tutorial" title="Link to this heading"></a></h1>
 <section id="compile">
-<span id="compile-section"></span><h2>2.1. Compile<a class="headerlink" href="#compile" title="Link to this heading"></a></h2>
+<span id="compile-section"></span><h2>Compile<a class="headerlink" href="#compile" title="Link to this heading"></a></h2>
 <p>For most systems, CaLES can be compiled from the root directory with the following commands <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">libs</span> <span class="pre">&amp;&amp;</span> <span class="pre">make</span></code>, which will compile the 2DECOMP&amp;FFT/cuDecomp libraries and CaLES. <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">clean</span></code> clears the CaLES build files, <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">libsclean</span></code> clears the 2DECOMP/cuDecomp builds, and <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">allclean</span></code> clears both.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">Makefile</span></code> in root directory is used to compiled the code, and is expected to work out-of-the-box for most systems. The <code class="docutils literal notranslate"><span class="pre">build.conf</span></code> file in the root directory can be used to choose the Fortran compiler (MPI wrapper), a few pre-defined profiles depending on the nature of the run (e.g., production vs debugging), and pre-processing options:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span># compiler and compiling profile
@@ -137,9 +138,9 @@ USE_NVTX=0
 <p>Finally, the choice of compiler <code class="docutils literal notranslate"><span class="pre">FCOMP</span></code> (see <code class="docutils literal notranslate"><span class="pre">configs/flags.mk</span></code>), and profile flags <code class="docutils literal notranslate"><span class="pre">FFLAGS_*</span></code> (see <code class="docutils literal notranslate"><span class="pre">configs/flags.mk</span></code>) can easily be overloaded, for instance, as: <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">FC=ftn</span> <span class="pre">FFLAGS=-O2</span></code>. Linking and Include options can be changed in <code class="docutils literal notranslate"><span class="pre">configs/libs.mk</span></code>.</p>
 </section>
 <section id="input">
-<span id="input-section"></span><h2>2.2. Input<a class="headerlink" href="#input" title="Link to this heading"></a></h2>
+<span id="input-section"></span><h2>Input<a class="headerlink" href="#input" title="Link to this heading"></a></h2>
 <section id="setting-input-nml">
-<h3>2.2.1. Setting <cite>input.nml</cite><a class="headerlink" href="#setting-input-nml" title="Link to this heading"></a></h3>
+<h3>Setting <cite>input.nml</cite><a class="headerlink" href="#setting-input-nml" title="Link to this heading"></a></h3>
 <p>Consider the following input file  as an example of wall-modeled LES (WMLES) of a turbulent plane channel flow. The <code class="docutils literal notranslate"><span class="pre">&amp;dns</span></code> namelist contains the necessary physical and computational parameters to set a case. The <code class="docutils literal notranslate"><span class="pre">&amp;les</span></code> namelist includes parameters for the large-eddy simulation model. The <code class="docutils literal notranslate"><span class="pre">&amp;cudecomp</span></code> namelist is optional and sets some runtime configurations for the cuDecomp library.</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>&amp;dns
 ng(1:3) = 128, 96, 64
@@ -188,7 +189,7 @@ endif
 </div>
 </section>
 <section id="namelist-dns">
-<h3>2.2.2. Namelist <cite>&amp;dns</cite><a class="headerlink" href="#namelist-dns" title="Link to this heading"></a></h3>
+<h3>Namelist <cite>&amp;dns</cite><a class="headerlink" href="#namelist-dns" title="Link to this heading"></a></h3>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ng(1:3) = 128, 96, 64
 l(1:3) = 12.8, 4.8, 2.
 gtype = 6, gr = 0.
@@ -311,7 +312,7 @@ velf(1:3) = 1., 0., 0.
 <p><code class="docutils literal notranslate"><span class="pre">dims</span></code> is the <strong>processor grid</strong>, the number of domain partitions along the first and second decomposed directions (which depend on the selected default pencil orientation). <code class="docutils literal notranslate"><span class="pre">dims(1)*dims(2)</span></code> corresponds therefore to the total number of computational subdomains. Setting <code class="docutils literal notranslate"><span class="pre">dims(:)</span> <span class="pre">=</span> <span class="pre">[0,0]</span></code> will trigger a runtime autotuning step to find the processor grid that minimizes transpose times. Note, however, that other components of the algorithm (e.g., collective I/O) may also be affected by the choice of processor grid.</p>
 </section>
 <section id="namelist-les">
-<h3>2.2.3. Namelist <cite>&amp;les</cite><a class="headerlink" href="#namelist-les" title="Link to this heading"></a></h3>
+<h3>Namelist <cite>&amp;les</cite><a class="headerlink" href="#namelist-les" title="Link to this heading"></a></h3>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>sgstype = &#39;smag&#39;
 lwm(0:1,1:3) = 0,0, 0,0, 1,1
 hwm = 0.1
@@ -331,7 +332,7 @@ hwm = 0.1
 <p><code class="docutils literal notranslate"><span class="pre">hwm</span></code> is the <strong>wall-modeled layer thickness</strong>.</p>
 </section>
 <section id="namelist-cudecomp">
-<h3>2.2.4. Namelist <cite>&amp;cudecomp</cite><a class="headerlink" href="#namelist-cudecomp" title="Link to this heading"></a></h3>
+<h3>Namelist <cite>&amp;cudecomp</cite><a class="headerlink" href="#namelist-cudecomp" title="Link to this heading"></a></h3>
 <p>This is an <strong>optional</strong> namelist to set some runtime configurations for the <em>cuDecomp</em> library. Consider the following <code class="docutils literal notranslate"><span class="pre">&amp;cudecomp</span></code> namelist, which corresponds to the default options in case the file is not provided:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>&amp;cudecomp
 cudecomp_t_comm_backend = 0, cudecomp_is_t_enable_nccl = T, cudecomp_is_t_enable_nvshmem = T
@@ -364,7 +365,7 @@ cudecomp_h_comm_backend = 0, cudecomp_is_h_enable_nccl = T, cudecomp_is_h_enable
 </section>
 </section>
 <section id="visualization">
-<span id="visualization-section"></span><h2>2.3. Visualization<a class="headerlink" href="#visualization" title="Link to this heading"></a></h2>
+<span id="visualization-section"></span><h2>Visualization<a class="headerlink" href="#visualization" title="Link to this heading"></a></h2>
 <p>In addition to the binary files for visualization, CaLES now generates a log file that contains information about the saved data (see <code class="docutils literal notranslate"><span class="pre">out2d.h90</span></code> and <code class="docutils literal notranslate"><span class="pre">out3d.h90</span></code> for more details); this new approach uses that log file to generate the <code class="docutils literal notranslate"><span class="pre">Xdmf</span></code> visualization file.</p>
 <p>The steps are as follows:</p>
 <ol class="arabic simple">
@@ -373,7 +374,7 @@ cudecomp_h_comm_backend = 0, cudecomp_is_h_enable_nccl = T, cudecomp_is_h_enable
 <li><p>Load the generated Xdmf (<code class="docutils literal notranslate"><span class="pre">*.xmf</span></code>) file using paraview/visit or other visualization software.</p></li>
 </ol>
 <section id="d-fields">
-<h3>2.3.1. 3D fields<a class="headerlink" href="#d-fields" title="Link to this heading"></a></h3>
+<h3>3D fields<a class="headerlink" href="#d-fields" title="Link to this heading"></a></h3>
 <p>When running the script <code class="docutils literal notranslate"><span class="pre">write_xdmf.py</span></code> we get the following prompts:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># python write_xdmf.py</span>
 Name<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>log<span class="w"> </span>file<span class="w"> </span>written<span class="w"> </span>by<span class="w"> </span>CaLES<span class="w"> </span><span class="o">[</span>log_visu_3d.out<span class="o">]</span>:
@@ -389,7 +390,7 @@ Name<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span
 <p>by pressing &lt;kbd&gt;enter&lt;/kbd&gt; three times, the default values in the square brackets are assumed by the script; these correspond to the default steps required for visualizing 3D field data.</p>
 </section>
 <section id="id1">
-<h3>2.3.2. 2D fields<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
+<h3>2D fields<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
 <p>The procedure for visualizing 2D field data that is saved by CaLES in <code class="docutils literal notranslate"><span class="pre">out2d.h90</span></code> is exactly the same; it is just that the correct log file should be selected. CaLES saves by default field data in a plane of constant <cite>y=ly/2</cite>, and logs the saves to a file named <code class="docutils literal notranslate"><span class="pre">log_visu_2d_slice_1.out</span></code>. If more planes are saved, the user should make sure that one log file per plane is saved by CaLES (e.g. if another plane is saved, the log file written in <code class="docutils literal notranslate"><span class="pre">out2d.h90</span></code> could be named <code class="docutils literal notranslate"><span class="pre">log_visu_2d_slice_2.out</span></code>); see <code class="docutils literal notranslate"><span class="pre">out2d.h90</span></code> for more details. The corresponding steps to generate the Xdmf file would be, for instance:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># python write_xdmf.py</span>
 Name<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>log<span class="w"> </span>file<span class="w"> </span>written<span class="w"> </span>by<span class="w"> </span>CaLES<span class="w"> </span><span class="o">[</span>log_visu_3d.out<span class="o">]</span>:<span class="w"> </span>log_visu_2d_slice_1.out
@@ -399,7 +400,7 @@ Name<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span
 </div>
 </section>
 <section id="checkpoint-files">
-<h3>2.3.3. checkpoint files<a class="headerlink" href="#checkpoint-files" title="Link to this heading"></a></h3>
+<h3>Checkpoint files<a class="headerlink" href="#checkpoint-files" title="Link to this heading"></a></h3>
 <p>A similar script also located in <code class="docutils literal notranslate"><span class="pre">utils/visualize_fields/gen_xdmf_easy</span></code>, named <code class="docutils literal notranslate"><span class="pre">write_xdmf_restart.py</span></code>, can be used to generate metadata that allows to visualize the field data contained in all saved checkpoint files:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># python write_xdmf_restart.py</span>
 Name<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>pattern<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>restart<span class="w"> </span>files<span class="w"> </span>to<span class="w"> </span>be<span class="w"> </span>visualized<span class="w"> </span><span class="o">[</span>fld?*.bin<span class="o">]</span>:
@@ -416,8 +417,8 @@ Name<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="1.Introduction.html" class="btn btn-neutral float-left" title="1. Introduction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="3.Examples.html" class="btn btn-neutral float-right" title="3. Examples" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="Introduction.html" class="btn btn-neutral float-left" title="Introduction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Examples.html" class="btn btn-neutral float-right" title="Examples" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

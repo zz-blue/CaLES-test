@@ -1,4 +1,4 @@
-2. Tutorial
+Tutorial
 ===========
 
 .. toctree::2
@@ -7,7 +7,7 @@
 
 .. _compile_section:
 
-2.1. Compile
+Compile
 ---------------
 
 For most systems, CaLES can be compiled from the root directory with the following commands ``make libs && make``, which will compile the 2DECOMP&FFT/cuDecomp libraries and CaLES. ``make clean`` clears the CaLES build files, ``make libsclean`` clears the 2DECOMP/cuDecomp builds, and ``make allclean`` clears both.
@@ -62,10 +62,10 @@ Finally, the choice of compiler ``FCOMP`` (see ``configs/flags.mk``), and profil
 
 .. _input_section:
 
-2.2. Input
+Input
 -------------
 
-2.2.1. Setting `input.nml`
+Setting `input.nml`
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Consider the following input file  as an example of wall-modeled LES (WMLES) of a turbulent plane channel flow. The ``&dns`` namelist contains the necessary physical and computational parameters to set a case. The ``&les`` namelist includes parameters for the large-eddy simulation model. The ``&cudecomp`` namelist is optional and sets some runtime configurations for the cuDecomp library.
@@ -118,7 +118,7 @@ Here is a tip for vim/nvim users. Consider adding the following lines in your ``
         au BufNewFile,BufRead *.namelist set filetype=fortran
     endif
 
-2.2.2. Namelist `&dns`
+Namelist `&dns`
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: text
@@ -276,7 +276,7 @@ This line set the grid of computational subdomains.
 ``dims`` is the **processor grid**, the number of domain partitions along the first and second decomposed directions (which depend on the selected default pencil orientation). ``dims(1)*dims(2)`` corresponds therefore to the total number of computational subdomains. Setting ``dims(:) = [0,0]`` will trigger a runtime autotuning step to find the processor grid that minimizes transpose times. Note, however, that other components of the algorithm (e.g., collective I/O) may also be affected by the choice of processor grid.
 
 
-2.2.3. Namelist `&les`
+Namelist `&les`
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: text
@@ -299,7 +299,7 @@ These lines set the subgrid-scale (SGS) model and wall model for the large-eddy 
 
 ``hwm`` is the **wall-modeled layer thickness**.
 
-2.2.4. Namelist `&cudecomp`
+Namelist `&cudecomp`
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 This is an **optional** namelist to set some runtime configurations for the *cuDecomp* library. Consider the following ``&cudecomp`` namelist, which corresponds to the default options in case the file is not provided:
@@ -339,7 +339,7 @@ Finally, it is worth recalling that passing ``dims(1:2) = [0,0]`` under ``&dns``
 
 .. _visualization_section:
 
-2.3. Visualization
+Visualization
 --------------------
 
 In addition to the binary files for visualization, CaLES now generates a log file that contains information about the saved data (see ``out2d.h90`` and ``out3d.h90`` for more details); this new approach uses that log file to generate the ``Xdmf`` visualization file.
@@ -351,7 +351,7 @@ The steps are as follows:
 3. Load the generated Xdmf (``*.xmf``) file using paraview/visit or other visualization software.
 
 
-2.3.1. 3D fields
+3D fields
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 When running the script ``write_xdmf.py`` we get the following prompts:
@@ -369,7 +369,7 @@ When running the script ``write_xdmf.py`` we get the following prompts:
 
 by pressing <kbd>enter</kbd> three times, the default values in the square brackets are assumed by the script; these correspond to the default steps required for visualizing 3D field data.
 
-2.3.2. 2D fields
+2D fields
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The procedure for visualizing 2D field data that is saved by CaLES in ``out2d.h90`` is exactly the same; it is just that the correct log file should be selected. CaLES saves by default field data in a plane of constant `y=ly/2`, and logs the saves to a file named ``log_visu_2d_slice_1.out``. If more planes are saved, the user should make sure that one log file per plane is saved by CaLES (e.g. if another plane is saved, the log file written in ``out2d.h90`` could be named ``log_visu_2d_slice_2.out``); see ``out2d.h90`` for more details. The corresponding steps to generate the Xdmf file would be, for instance:
@@ -381,7 +381,7 @@ The procedure for visualizing 2D field data that is saved by CaLES in ``out2d.h9
     Name to be appended to the grid files to prevent overwriting []: 2d
     Name of the output file [viewfld_DNS.xmf]: viewfld_DNS_2d.xmf
 
-2.3.3. checkpoint files
+Checkpoint files
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 A similar script also located in ``utils/visualize_fields/gen_xdmf_easy``, named ``write_xdmf_restart.py``, can be used to generate metadata that allows to visualize the field data contained in all saved checkpoint files:
