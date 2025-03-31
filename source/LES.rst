@@ -5,8 +5,7 @@ More detailed results of the demonstration examples can be found in the followin
 
 .. seealso::  
    
-   `Xiao, Maochao, Alessandro Ceci, Pedro Costa, Johan Larsson, and Sergio Pirozzoli. "CaLES: A GPU-accelerated solver for large-eddy simulation of wall-bounded flows." arXiv preprint arXiv:2411.09364 (2024). <https://arxiv.org/abs/2411.09364>`_  
-   
+   `Xiao, Maochao, Alessandro Ceci, Pedro Costa, Johan Larsson, and Sergio Pirozzoli. "CaLES: A GPU-accelerated solver for large-eddy simulation of wall-bounded flows." Computer Physics Communications  310 (2025) 109546. <https://doi.org/10.1016/j.cpc.2025.109546>`_
 
 Wall-resolved turbulent plane channel flow
 -----------------------------------------------------

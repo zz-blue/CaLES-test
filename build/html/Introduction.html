@@ -106,7 +106,7 @@
 </ul>
 <p>In the z direction, the solver offers more flexibility by using Gauss elimination, allowing for a non-uniform grid.</p>
 <p>CaLES allows for choosing an implicit temporal discretization of the momentum diffusion terms, either fully implicit or only along the z direction. This results in solving a 3D/1D Helmholtz equation per velocity component. In the fully implicit case, FFT-based solvers are also used, and the same options described above for pressure boundary conditions apply to the velocity. This implies that if the wall model is used, it can only be applied in the z direction, as homogeneous boundary conditions are required in the other two directions where FFTs are applied. However, this limitation may be irrelevant, as explicit time integration is commonly used for wall-modeled LES due to the large thickness of the first off-wall layer of cells. Additionally, this restriction does not apply when the viscous terms are handled implicitly only in the z-direction.</p>
-<p>Please refer to the theory manual <a class="reference download internal" download="" href="_downloads/c36f4b940cb063104d3260d7c23c820b/CaLES_theory.pdf"><code class="xref download docutils literal notranslate"><span class="pre">CaLES</span> <span class="pre">Theory.pdf</span></code></a> for more information on the methodology of CaLES. And the theoretical manual reference for CaNS: <a class="reference download internal" download="" href="_downloads/807c9654c84e571f25ae733938f0178f/CaNS%202.0%20Theory%20Manual.pdf"><code class="xref download docutils literal notranslate"><span class="pre">CaNS</span> <span class="pre">Ttheory.pdf</span></code></a></p>
+<p>Please refer to the theory manual <a class="reference download internal" download="" href="_downloads/c36f4b940cb063104d3260d7c23c820b/CaLES_theory.pdf"><code class="xref download docutils literal notranslate"><span class="pre">CaLES</span> <span class="pre">Theory.pdf</span></code></a> for more information on the methodology of CaLES.</p>
 </section>
 <section id="implementation">
 <h2>Implementation<a class="headerlink" href="#implementation" title="Link to this heading"></a></h2>
@@ -123,7 +123,7 @@
 </ul>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
-<p><a class="reference external" href="https://arxiv.org/abs/2411.09364">Xiao, Maochao, Alessandro Ceci, Pedro Costa, Johan Larsson, and Sergio Pirozzoli. “CaLES: A GPU-accelerated solver for large-eddy simulation of wall-bounded flows.” arXiv preprint arXiv:2411.09364 (2024).</a></p>
+<p><a class="reference external" href="https://doi.org/10.1016/j.cpc.2025.109546">Xiao, Maochao, Alessandro Ceci, Pedro Costa, Johan Larsson, and Sergio Pirozzoli. “CaLES: A GPU-accelerated solver for large-eddy simulation of wall-bounded flows.” Computer Physics Communications 310 (2025) 109546.</a></p>
 <p><a class="reference external" href="https://doi.org/10.1016/j.camwa.2020.01.002">Costa, Pedro, Everett Phillips, Luca Brandt, and Massimiliano Fatica. “GPU acceleration of CaNS for massively-parallel direct numerical simulations of canonical fluid flows.” Computers &amp; Mathematics with Applications 81 (2021): 502-511.</a></p>
 <p><a class="reference external" href="https://www.sciencedirect.com/science/article/pii/S089812211830405X?via%3Dihub">Costa, Pedro. “A FFT-based finite-difference solver for massively-parallel direct numerical simulations of turbulent flows.” Computers &amp; Mathematics with Applications 76 (2018): 1853-1862.</a></p>
 </div>

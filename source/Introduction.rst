@@ -46,7 +46,7 @@ Some of the key implementation features of CaLES are:
 
 .. seealso::  
    
-   `Xiao, Maochao, Alessandro Ceci, Pedro Costa, Johan Larsson, and Sergio Pirozzoli. "CaLES: A GPU-accelerated solver for large-eddy simulation of wall-bounded flows." arXiv preprint arXiv:2411.09364 (2024). <https://arxiv.org/abs/2411.09364>`_  
+   `Xiao, Maochao, Alessandro Ceci, Pedro Costa, Johan Larsson, and Sergio Pirozzoli. "CaLES: A GPU-accelerated solver for large-eddy simulation of wall-bounded flows." Computer Physics Communications 310 (2025) 109546. <https://doi.org/10.1016/j.cpc.2025.109546>`_  
    
    `Costa, Pedro, Everett Phillips, Luca Brandt, and Massimiliano Fatica. "GPU acceleration of CaNS for massively-parallel direct numerical simulations of canonical fluid flows." Computers & Mathematics with Applications 81 (2021): 502-511. <https://doi.org/10.1016/j.camwa.2020.01.002>`_  
    
