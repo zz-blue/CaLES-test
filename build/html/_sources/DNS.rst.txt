@@ -8,13 +8,6 @@ More detailed results of the demonstration examples can be found in the followin
    `Costa, Pedro. "FFT-based finite-difference solver for massively-parallel direct numerical simulations of turbulent flows." Computers & Mathematics with Applications 76 (2018) 1853–1862. <https://doi.org/10.1016/j.camwa.2018.07.034>`_  
 
 
-
-
-
-
-
-
-
 Lid-driven cavity flow
 ---------------------------------------
 
