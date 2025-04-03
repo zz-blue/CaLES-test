@@ -79,7 +79,7 @@ The prerequisites for compiling CaLES are the following:
 - NCCL and NVSHMEM (optional, may be exploited by the cuDecomp library)
 - For most systems, CaLES can be compiled from the root directory with the following commands ``make libs && make``, which will compile the 2DECOMP&FFT/cuDecomp libraries and CaLES.
 
-The ``Makefile`` in root directory is used to compile the code, and is expected to work out-of-the-box for most systems. The ``build.conf`` file in the root directory can be used to choose the Fortran compiler (MPI wrapper), and a few pre-defined profiles depending on the nature of the run (e.g., production vs debugging), and pre-processing options, see :ref:`2.1. Compile <compile_section>` for more details. Concerning the pre-processing options, the following are available:
+The ``Makefile`` in root directory is used to compile the code, and is expected to work out-of-the-box for most systems. The ``build.conf`` file in the root directory can be used to choose the Fortran compiler (MPI wrapper), and a few pre-defined profiles depending on the nature of the run (e.g., production vs debugging), and pre-processing options, see :ref:`Compile <compile_section>` for more details. Concerning the pre-processing options, the following are available:
 
 - **DEBUG** : performs some basic checks for debugging purposes
 - **TIMING** : wall-clock time per time step is computed
@@ -95,7 +95,7 @@ The executable ``cales`` will be created in the ``build/`` directory.
 Running Simulations
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The input file ``input.nml`` sets the physical and computational parameters. In the ``examples/`` folder are examples of input files for several canonical flows. See :ref:`2.2. Input <input_section>` for a detailed description of the input file.
+The input file ``input.nml`` sets the physical and computational parameters. In the ``examples/`` folder are examples of input files for several canonical flows. See :ref:`Input <input_section>` for a detailed description of the input file.
 
 Files ``out1d.h90``, ``out2d.h90`` and ``out3d.h90`` in ``src/`` set which data are written in 1-, 2- and 3-dimensional output files, respectively. The code should be recompiled after editing ``out?d.h90`` files.
 
@@ -105,7 +105,7 @@ Run the executable with mpirun with a number of tasks. For example, to run the c
    
    mpirun -n 2 cales
 
-See :ref:`2.3. Visualization <visualization_section>` for how to visualize the output files.
+See :ref:`Visualization <visualization_section>` for how to visualize the output files.
 
 Contributing
 ----------------------------
