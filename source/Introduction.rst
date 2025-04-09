@@ -10,7 +10,7 @@ Introduction
 Overview
 ------------------
 
-`CaLES <https://github.com/soaringxmc/CaLES>`_ (Canonical Large-Eddy Simulation) is a GPU-accelerated finite-difference solver designed for large-eddy simulations (LES) of incompressible wall-bounded flows in massively parallel environments. Built upon the existing direct numerical simulation (DNS) solver `CaNS <https://github.com/CaNS-World/CaNS>`_, CaLES relies on low-storage, third-order Runge-Kutta schemes for temporal discretization, with the option to treat viscous terms via an implicit Crank-Nicolson scheme in one or three directions. A fast direct solver, based on eigenfunction expansions, is used to solve the discretized Poisson/Helmholtz equations. For turbulence modeling, the classical Smagorinsky model with van Driest near-wall damping and the dynamic Smagorinsky model are implemented, along with a logarithmic law wall model. GPU acceleration is achieved through OpenACC directives. Some examples of flows that CaLES can solve include:
+`CaLES <https://github.com/CaNS-World/CaLES>`_ (Canonical Large-Eddy Simulation) is a GPU-accelerated finite-difference solver designed for large-eddy simulations (LES) of incompressible wall-bounded flows in massively parallel environments. Built upon the existing direct numerical simulation (DNS) solver `CaNS <https://github.com/CaNS-World/CaNS>`_, CaLES relies on low-storage, third-order Runge-Kutta schemes for temporal discretization, with the option to treat viscous terms via an implicit Crank-Nicolson scheme in one or three directions. A fast direct solver, based on eigenfunction expansions, is used to solve the discretized Poisson/Helmholtz equations. For turbulence modeling, the classical Smagorinsky model with van Driest near-wall damping and the dynamic Smagorinsky model are implemented, along with a logarithmic law wall model. GPU acceleration is achieved through OpenACC directives. Some examples of flows that CaLES can solve include:
 
 - periodic or developing channel
 - periodic or developing square duct
@@ -62,7 +62,7 @@ Since CaLES loads the external pencil decomposition libraries as Git Submodules,
 
 .. code-block:: bash
    
-   git clone --recursive https://github.com/soaringxmc/CaLES.git
+   git clone --recursive https://github.com/CaNS-World/CaLES.git
 
 so the libraries are downloaded too. Alternatively, in case the repository has already been cloned without the Submodules (i.e., folders ``cuDecomp`` and ``2decomp-fft`` under ``dependencies/`` are empty), the following command can be used to update them:
 

@@ -12,7 +12,7 @@ The difference between DNS and LES input files lies in disabling the SGS model a
 
 By setting ``sgstype`` to ``none`` and ``lwm`` to ``0``, DNS computation can be enabled.
 
-All example input files can be found in the ``examples`` folder on GitHub: https://github.com/soaringxmc/CaLES.
+All example input files can be found in the ``examples`` folder on GitHub: https://github.com/CaNS-World/CaLES.
 
 
 .. toctree::
